@@ -1,0 +1,5 @@
+{
+  "markdown.copyFiles.destination": {
+    "src/**/*.md": "src/assets/${documentBaseName}.assets/${fileName}"
+  }
+}
