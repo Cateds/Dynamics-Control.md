@@ -1,0 +1,14 @@
+/* KaTeX 公式横向滚动 */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .katex-display {
+    max-width: 100%;
+  }
+}
