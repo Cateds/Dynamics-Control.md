@@ -1,5 +1,6 @@
 ---
 title: 动态系统总览
+description: 介绍动态系统的基本概念，包括一阶、二阶和高阶系统，拉普拉斯变换以及系统响应特性。
 ---
 
 > Title: **Overview of Dynamic Systems**
