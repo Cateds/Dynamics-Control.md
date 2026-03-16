@@ -4,35 +4,41 @@ import starlight from "@astrojs/starlight";
 import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
 } from "./plugin/starlight-relative-doc-links/index.mts";
+import { starlightKatex } from "starlight-katex";
+import starlightThemeNova from "starlight-theme-nova";
 
 const docsGenerateId = createStarlightDocsGenerateId();
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://cateds.github.io",
+  base: "/dynamics-control.md",
   integrations: [
     starlight({
-      title: "My Docs",
+      locales: { root: { lang: "zh", label: "中文" } },
+      title: "Dynamics & Control",
+      components: {
+        SocialIcons: "./src/components/SocialIcons.astro",
+      },
       social: [
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/withastro/starlight",
+          href: "https://github.com/cateds/dynamics-control.md",
         },
       ],
       sidebar: [
         {
-          label: "Guides",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          label: "Part.1",
+          autogenerate: { directory: "part.1" },
         },
       ],
-      plugins: [starlightRelativeDocLinks({ generateId: docsGenerateId })],
+      lastUpdated: true,
+      plugins: [
+        starlightRelativeDocLinks({ generateId: docsGenerateId }),
+        starlightKatex(),
+        starlightThemeNova(),
+      ],
     }),
   ],
 });
