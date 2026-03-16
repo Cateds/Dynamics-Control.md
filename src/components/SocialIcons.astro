@@ -1,0 +1,21 @@
+---
+import DefaultSocialIcons from "@astrojs/starlight/components/SocialIcons.astro";
+---
+
+<!-- 渲染默认的社交图标（如 GitHub） -->
+<DefaultSocialIcons />
+
+<!-- 添加自定义头像链接 -->
+<a
+  href="https://cateds.github.io/"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Author's Homepage"
+  style="display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem;"
+>
+  <img
+    src="https://github.com/cateds.png?size=200"
+    alt="Author Avatar"
+    style="width: 1.4rem; height: 1.4rem; border-radius: 50%; object-fit: cover;"
+  />
+</a>
