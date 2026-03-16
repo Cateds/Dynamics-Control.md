@@ -12,7 +12,7 @@ const docsGenerateId = createStarlightDocsGenerateId();
 // https://astro.build/config
 export default defineConfig({
   site: "https://cateds.github.io",
-  base: "/dynamics-control.md",
+  base: "/Dynamics-Control.md",
   integrations: [
     starlight({
       locales: { root: { lang: "zh", label: "中文" } },
