@@ -19,6 +19,7 @@ export default defineConfig({
       title: "Dynamics & Control",
       components: {
         SocialIcons: "./src/components/SocialIcons.astro",
+        Head: "./src/components/Head.astro",
       },
       social: [
         {
