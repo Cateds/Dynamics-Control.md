@@ -181,6 +181,6 @@ $$
 
 ![exercise](../../../assets/lec3.assets/image-16.png)
 
-是的，没有答案（暂时）
+答案在 Moodle 上的 `Example Answer Lecture - III.pdf` 中
 
 </details>
