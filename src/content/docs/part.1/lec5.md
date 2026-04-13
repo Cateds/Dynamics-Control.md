@@ -160,6 +160,8 @@ c(t) = \frac{K_p}{K_p+1}\left[
 \right]
 $$
 
+> 后接 [Lec.6](./lec6.md#pd)
+
 ---
 
 <details>
