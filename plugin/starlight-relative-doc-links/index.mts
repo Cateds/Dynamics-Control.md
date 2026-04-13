@@ -31,9 +31,7 @@ type GenerateIdOptions = {
 type GenerateId = (options: GenerateIdOptions) => string;
 type LinkNode = Link | Definition;
 type StarlightConfigSetupOptions = HookParameters<"config:setup">;
-type AstroConfigSetupHook = NonNullable<
-  AstroIntegration["hooks"]["astro:config:setup"]
->;
+type AstroConfigSetupHook = NonNullable<AstroIntegration["hooks"]["astro:config:setup"]>;
 type AstroConfigSetupOptions = Parameters<AstroConfigSetupHook>[0];
 
 interface RelativeDocLinksPluginOptions {
@@ -56,10 +54,7 @@ interface RemarkRelativeDocLinksOptions extends ResolvedRelativeDocLinksPluginOp
   logger: AstroIntegrationLogger;
 }
 
-const DEFAULT_LINK_NODE_TYPES = new Set<LinkNode["type"]>([
-  "link",
-  "definition",
-]);
+const DEFAULT_LINK_NODE_TYPES = new Set<LinkNode["type"]>(["link", "definition"]);
 
 export const starlightDocsGenerateId: GenerateId = ({ entry, data }) => {
   if (typeof data.slug === "string") {
@@ -92,25 +87,14 @@ export default function starlightRelativeDocLinks(
   };
 }
 
-function createAstroIntegration(
-  options: ResolvedRelativeDocLinksPluginOptions,
-): AstroIntegration {
+function createAstroIntegration(options: ResolvedRelativeDocLinksPluginOptions): AstroIntegration {
   return {
     name: "starlight-relative-doc-links-integration",
     hooks: {
-      "astro:config:setup"({
-        config,
-        updateConfig,
-        logger,
-      }: AstroConfigSetupOptions) {
-        const docsRoot = fileURLToPath(
-          new URL("./src/content/docs/", config.root),
-        );
+      "astro:config:setup"({ config, updateConfig, logger }: AstroConfigSetupOptions) {
+        const docsRoot = fileURLToPath(new URL("./src/content/docs/", config.root));
         const docsRootUrl = directoryPathToFileUrl(docsRoot);
-        const remarkPlugin: [
-          typeof remarkRelativeDocLinks,
-          RemarkRelativeDocLinksOptions,
-        ] = [
+        const remarkPlugin: [typeof remarkRelativeDocLinks, RemarkRelativeDocLinksOptions] = [
           remarkRelativeDocLinks,
           {
             base: config.base ?? "/",
@@ -127,10 +111,7 @@ function createAstroIntegration(
         updateConfig({
           markdown: {
             ...(config.markdown ?? {}),
-            remarkPlugins: [
-              ...(config.markdown?.remarkPlugins ?? []),
-              remarkPlugin,
-            ],
+            remarkPlugins: [...(config.markdown?.remarkPlugins ?? []), remarkPlugin],
           },
         });
       },
@@ -140,8 +121,7 @@ function createAstroIntegration(
 
 function remarkRelativeDocLinks(options: RemarkRelativeDocLinksOptions) {
   return (tree: Root, file: VFile): void => {
-    const sourceFilePath =
-      typeof file.path === "string" ? path.resolve(file.path) : null;
+    const sourceFilePath = typeof file.path === "string" ? path.resolve(file.path) : null;
 
     if (!sourceFilePath || !isInDirectory(sourceFilePath, options.docsRoot)) {
       return;
@@ -173,10 +153,7 @@ function rewriteDocLink(
   const decodedPathname = safeDecodePathname(pathname);
   const sourceDirectory = path.dirname(sourceFilePath);
   const absoluteTargetPath = path.resolve(sourceDirectory, decodedPathname);
-  const targetFilePath = resolveDocTargetPath(
-    absoluteTargetPath,
-    options.extensions,
-  );
+  const targetFilePath = resolveDocTargetPath(absoluteTargetPath, options.extensions);
 
   if (!targetFilePath || !isInDirectory(targetFilePath, options.docsRoot)) {
     if (options.warnOnMissingTarget) {
@@ -187,9 +164,7 @@ function rewriteDocLink(
     return null;
   }
 
-  const entry = normalizeSlashes(
-    path.relative(options.docsRoot, targetFilePath),
-  );
+  const entry = normalizeSlashes(path.relative(options.docsRoot, targetFilePath));
   const data = readEntryData(targetFilePath, options.entryDataCache);
   const id = options.generateId({ entry, base: options.docsRootUrl, data });
   const routePath = withBase(options.base, docIdToPathname(id));
@@ -204,9 +179,7 @@ function resolveDocTargetPath(
   const extension = path.extname(absoluteTargetPath).toLowerCase();
 
   if (extension) {
-    return extensions.includes(extension) && isFile(absoluteTargetPath)
-      ? absoluteTargetPath
-      : null;
+    return extensions.includes(extension) && isFile(absoluteTargetPath) ? absoluteTargetPath : null;
   }
 
   const directFileCandidates = extensions.map(
@@ -226,12 +199,7 @@ function resolveDocTargetPath(
 }
 
 function shouldResolveRelativeDocLink(url: string): boolean {
-  if (
-    !url ||
-    url.startsWith("#") ||
-    url.startsWith("/") ||
-    url.startsWith("//")
-  ) {
+  if (!url || url.startsWith("#") || url.startsWith("/") || url.startsWith("//")) {
     return false;
   }
 
@@ -289,9 +257,7 @@ function normalizeRouteId(id: string): string {
     return "";
   }
 
-  return normalizedId.endsWith("/index")
-    ? normalizedId.slice(0, -6)
-    : normalizedId;
+  return normalizedId.endsWith("/index") ? normalizedId.slice(0, -6) : normalizedId;
 }
 
 function withBase(base: string, pathname: string): string {
@@ -334,10 +300,7 @@ function normalizeSlashes(value: string): string {
   return value.replace(/\\/g, "/");
 }
 
-function readEntryData(
-  filePath: string,
-  cache: Map<string, FrontmatterData>,
-): FrontmatterData {
+function readEntryData(filePath: string, cache: Map<string, FrontmatterData>): FrontmatterData {
   const cached = cache.get(filePath);
   if (cached) {
     return cached;

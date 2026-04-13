@@ -1,13 +1,13 @@
 {
   "name": "dynamics-and-control-md",
-  "type": "module",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "fmt": "prettier --write .",
+    "fmt": "oxfmt .",
     "astro": "astro"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "astro-vtbot": "^2.1.12",
-    "prettier": "^3.8.1"
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0"
   }
 }

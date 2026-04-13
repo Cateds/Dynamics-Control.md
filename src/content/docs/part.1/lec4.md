@@ -5,7 +5,7 @@ description: 控制系统稳定性的概念和劳斯稳定判据
 
 > Title : **Control System Stability**
 >
-> Lecture @ 2026-3-17
+> Lecture @ 2026-4-13
 
 ## 传递函数性质
 
