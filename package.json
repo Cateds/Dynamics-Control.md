@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "fmt": "oxfmt .",
-    "astro": "astro"
+    "astro": "astro",
+    "export-pdf": "bun run utils/export-pdf.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.7",
@@ -22,6 +23,8 @@
   "devDependencies": {
     "astro-vtbot": "^2.1.12",
     "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0"
+    "oxlint": "^1.56.0",
+    "puppeteer": "^25.0.4",
+    "serve-handler": "^6.1.7"
   }
 }
