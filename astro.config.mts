@@ -33,6 +33,10 @@ export default defineConfig({
           label: "Part.1",
           autogenerate: { directory: "part.1" },
         },
+        {
+          label: "Part.2",
+          autogenerate: { directory: "part.2" },
+        }
       ],
       lastUpdated: true,
       plugins: [

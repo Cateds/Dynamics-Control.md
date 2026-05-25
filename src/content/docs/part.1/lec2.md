@@ -11,19 +11,19 @@ description: 介绍控制系统的基本概念，包括开环和闭环控制，�
 
 **控制系统** (Control System) 是一种使用了控制技术的系统，它有广泛的使用场景，比如功率放大、远程控制等。他有方便的输入形式，同时对外部干扰也能有很强的补偿能力。
 
-![samples](../../../assets/lec2.assets/image.png)
+![samples](./lec2.assets/image.png)
 
 一个常见的控制方式是 **开环控制** (Open-Loop Control)，它的输入和输出之间没有反馈关系。比如说一个简单的烤面包机，用户设置一个时间，面包机会在这个时间结束后弹出面包。这个系统的输入是时间，输出是面包的状态（是否弹出）。如果用户设置的时间不合适，面包可能会烤得过熟或者不熟。
 
-![open-loop](../../../assets/lec2.assets/image-1.png)
+![open-loop](./lec2.assets/image-1.png)
 
 而另一种控制方式， **闭环控制** (Closed-Loop Control)，则解决了这个问题。它通过 **反馈机制** 把系统的输出信息反馈到输入端，从而调整系统的行为，最终实现了更好的性能和稳定性。
 
-![close-loop](../../../assets/lec2.assets/image-2.png)
+![close-loop](./lec2.assets/image-2.png)
 
 比如说电机转速控制系统。输入是电压，输出是转速。通过测量转速并将其反馈到输入端，系统可以调整电压以保持所需的转速，即使负载发生变化或者外部干扰存在。
 
-![motor](../../../assets/lec2.assets/image-3.png)
+![motor](./lec2.assets/image-3.png)
 
 ## 设计流程
 
@@ -40,7 +40,7 @@ description: 介绍控制系统的基本概念，包括开环和闭环控制，�
 
 ## 框图 (Block Diagram)
 
-![sample](../../../assets/lec2.assets/image-4.png)
+![sample](./lec2.assets/image-4.png)
 
 从这个简单的情况下手：这是一个简单的机械系统，输入是 $y(t)$，响应为 $x(t)$，系统的运动方程是
 
@@ -56,7 +56,7 @@ $$
 
 那么，这个系统的框图就可以画成下面这个样子：
 
-![functional block](../../../assets/lec2.assets/image-5.png)
+![functional block](./lec2.assets/image-5.png)
 
 其中，输入是 $Y(s)$，输出是 $X(s)$，系统的传递函数是 $F(s) = \frac{c s + k}{m s^2 + c s + k}$。
 
@@ -64,29 +64,29 @@ $$
 
 一般来说，具有输入 $u(t)$，响应 $x(t)$, 传递函数 $G(s)$ 的系统元素都可以表示为下图的单个模块：
 
-![functional](../../../assets/lec2.assets/image-6.png)
+![functional](./lec2.assets/image-6.png)
 
 如果一个系统由多个组件组成，则各个模块之间使用箭头连接，显示信号流动的方向。信号之间进行比较的地方被称为 **求和点** (Summation Point)，它用一个圆圈表示，里面有一个加号或者减号，表示输入信号的加权和。同一个信号分支的地方叫做 **分支点** (Branch Point)，它表示允许信号同时流向多个模块。
 
-![others](../../../assets/lec2.assets/image-7.png)
+![others](./lec2.assets/image-7.png)
 
 一个控制系统在结构上或者设计上可能非常复杂，对应的方框图可能也非常复杂，它会显示系统的所有输入、输出和扰动。
 
 我们可以把框图简化成一个简单的传递函数，它关联单个输入与单个输出，可以通过应用七条基本规则来实现
 
-![alt text](../../../assets/lec2.assets/image-8.png)
+![alt text](./lec2.assets/image-8.png)
 
 ## 框图简化
 
 ### 级联两个信号
 
-![cascade](../../../assets/lec2.assets/image-9.png)
+![cascade](./lec2.assets/image-9.png)
 
 如果有两个串联的块，传递函数分别为 $G_1(s)$ 和 $G_2(s)$，那么它们的等效传递函数就是 $G(s) = G_1(s) G_2(s)$。
 
 ### 求和两个信号
 
-![sum](../../../assets/lec2.assets/image-10.png)
+![sum](./lec2.assets/image-10.png)
 
 如果有一个信号是两个块的求和，传递函数分别为 $G_1(s)$ 和 $G_2(s)$，那么它们的等效传递函数就是 $G(s) = G_1(s) + G_2(s)$。
 
@@ -94,31 +94,31 @@ $$
 
 ### 求和点移到块后方
 
-![sum-move](../../../assets/lec2.assets/image-11.png)
+![sum-move](./lec2.assets/image-11.png)
 
 如果 $X_1(s)$ 和 $X_2(s)$ 是求和点的输入，$G(s)$ 是块的传递函数，那么它们的等效传递函数就是 $G(s) = G(s) X_1(s) + G(s) X_2(s)$，相当于是把 $G(s) X_1(s)$ 和 $G(s) X_2(s)$ 分别求得后再求和。
 
 ### 求和点移到块前方
 
-![sum-move-front](../../../assets/lec2.assets/image-12.png)
+![sum-move-front](./lec2.assets/image-12.png)
 
 类似的，如果 $G(s) X_1(s)$ 和 $X_2(s)$ 是求和点的输入，$G(s)$ 是块的传递函数，那么它们的等效传递函数就是 $G(s) = G(s) X_1(s) + X_2(s)$，相当于是把 $X_1(s)$ 和 $\frac{1}{G(s)} X_2(s)$ 求和后再通过块 $G(s)$。
 
 ### 把分支点移到块之前
 
-![move-ahead](../../../assets/lec2.assets/image-13.png)
+![move-ahead](./lec2.assets/image-13.png)
 
 如果在块 $G(s)$ 的输出处有一个分支点，那么等效于把分支点提到块的输入处，每条分支路径上都有一个相同的块 $G(s)$。
 
 ### 把分支点移到块之后
 
-![move-behind](../../../assets/lec2.assets/image-14.png)
+![move-behind](./lec2.assets/image-14.png)
 
 如果在块 $G(s)$ 的输入处有一个分支点，那么等效于把分支点提到块的输出处，每条被移过来的分支路径上都有一个相同的块 $\frac{1}{G(s)}$。
 
 ### 消除反馈回路
 
-![loop](../../../assets/lec2.assets/image-15.png)
+![loop](./lec2.assets/image-15.png)
 
 对于包含反馈回路的系统，设前向通路的传递函数为 $G(s)$，反馈通路的传递函数为 $H(s)$。在求和点处，输入信号 $X_1(s)$ 与反馈信号 $B(s)$ 进行比较，产生误差信号 $E(s) = X_1(s) \pm B(s)$，其中正号表示正反馈，负号表示负反馈。
 

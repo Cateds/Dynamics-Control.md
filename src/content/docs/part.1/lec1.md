@@ -15,7 +15,7 @@ description: 介绍动态系统的基本概念，包括一阶、二阶和高阶�
 
 然后，现在的问题就到了，该怎么描述一个系统的内部行为？
 
-![fig-1](../../../assets/lec1.assets/image.png)
+![fig-1](./lec1.assets/image.png)
 
 ---
 
@@ -34,19 +34,19 @@ description: 介绍动态系统的基本概念，包括一阶、二阶和高阶�
 
 来点人话，比如说这是一个自行车，它由两个并联阻尼器组成，其中输入和输出都是位置。这个模型具体的就是在特定刹车行程下，刹车的输入和自行车的输出位置之间的关系。
 
-![fig-2](../../../assets/lec1.assets/image-1.png)
+![fig-2](./lec1.assets/image-1.png)
 
 类似的还有串联阻尼器组成的模型
 
-![fig-3](../../../assets/lec1.assets/image-2.png)
+![fig-3](./lec1.assets/image-2.png)
 
 还有在信号与系统里已经差不多受够了的电气系统建模
 
-![fig-4](../../../assets/lec1.assets/image-3.png)
+![fig-4](./lec1.assets/image-3.png)
 
 类似的，还有通过牛顿第二定律定义的机械系统。这是一个小车，在水平方向上受一个输入力 $F(t)$ 的作用，输出的是它的位置 $x(t)$。这个系统的动力学方程是 $m\ddot{x}(t) = F(t)$，其中 $m$ 是小车的质量。这是一个二阶系统。
 
-![fig-5](../../../assets/lec1.assets/image-4.png)
+![fig-5](./lec1.assets/image-4.png)
 
 ## 描述动态系统
 
@@ -69,7 +69,7 @@ $$
 
 改变 $\tau$ 改变的是系统的响应速度， $\tau$ 越小，系统响应越快。改变 $K$ 改变的是系统的增益， $K$ 越大，系统的输出越大。
 
-![fig-6](../../../assets/lec1.assets/image-5.png)
+![fig-6](./lec1.assets/image-5.png)
 
 > 是的，[一阶滤波器](https://github.com/Cateds/CAD_Lecture_Notes/blob/main/Lecture12.md) ，欢迎回来。
 
@@ -85,7 +85,7 @@ $$
 
 改变 $\zeta$ 改变的是系统的震荡程度， $\zeta$ 越大，系统的震荡越大。改变 $\omega_n$ 改变的是系统的自然频率， $\omega_n$ 越大，系统的响应越快。改变 $K$ 改变的是系统的增益， $K$ 越大，系统的输出越大。
 
-![fig-7](../../../assets/lec1.assets/image-6.png)
+![fig-7](./lec1.assets/image-6.png)
 
 ### 高阶系统 (Higher-Order System)
 
@@ -126,7 +126,7 @@ $$
 <details>
 <summary>随堂小练习：计算这个二阶系统的传递函数</summary>
 
-![fig-8](../../../assets/lec1.assets/image-7.png)
+![fig-8](./lec1.assets/image-7.png)
 
 这是一个同时受外部力 $u(t)$ 和摩擦力 $b\dot{x}(t)$ 作用的二阶系统，动力学方程是
 
@@ -208,7 +208,7 @@ a, & t \geq 0
 \end{cases}
 $$
 
-![step](../../../assets/lec1.assets/image-8.png)
+![step](./lec1.assets/image-8.png)
 
 类似的还有斜坡输入 (ramp input)，定义为
 
@@ -219,7 +219,7 @@ at, & t \geq 0
 \end{cases}
 $$
 
-![ramp](../../../assets/lec1.assets/image-9.png)
+![ramp](./lec1.assets/image-9.png)
 
 ### 响应属性
 
@@ -243,7 +243,7 @@ $$
 
 :::
 
-![response properties](../../../assets/lec1.assets/image-10.png)
+![response properties](./lec1.assets/image-10.png)
 
 在运动阶段，系统的响应可以被多种属性描述，比如响应的峰值 $M_p$，峰值时间 $t_p$，上升时间 $t_r$，稳定时间 $t_s$，等等。
 

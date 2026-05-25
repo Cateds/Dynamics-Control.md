@@ -1,5 +1,0 @@
-{
-  "markdown.copyFiles.destination": {
-    "*": "${documentWorkspaceFolder}/src/assets/${documentBaseName}.assets/${fileName}"
-  }
-}

@@ -14,7 +14,7 @@ description: 介绍如何使用方框图简化规则来分析和设计控制系�
 <details>
 <summary>快速回顾</summary>
 
-![rules](../../../assets/lec3.assets/image.png)
+![rules](./lec3.assets/image.png)
 
 </details>
 
@@ -22,11 +22,11 @@ description: 介绍如何使用方框图简化规则来分析和设计控制系�
 
 从一个简单的例子入手
 
-![sample1](../../../assets/lec3.assets/image-1.png)
+![sample1](./lec3.assets/image-1.png)
 
 一个非常非常力大砖飞的方法是把每个中间信号都求出来，最后再把它们组合成一个单一的传递函数。比如在这里，我们有
 
-![sample1-1](../../../assets/lec3.assets/image-2.png)
+![sample1-1](./lec3.assets/image-2.png)
 
 $$
 \begin{aligned}
@@ -61,19 +61,19 @@ $$
 
 还是这个熟悉的图
 
-![sample1](../../../assets/lec3.assets/image-1.png)
+![sample1](./lec3.assets/image-1.png)
 
 先使用第七条规则，去掉一个包括 $G_2(s)$ 和 $H_2(s)$ 的反馈回路
 
-![step1](../../../assets/lec3.assets/image-3.png)
+![step1](./lec3.assets/image-3.png)
 
 然后使用第一条规则，把级联的 $G_1(s)$ 和 $\frac{G_2(s)}{1+G_2(s) H_2(s)}$ 合并成一个块
 
-![step2](../../../assets/lec3.assets/image-4.png)
+![step2](./lec3.assets/image-4.png)
 
 最后使用第七条规则，去掉剩下的反馈回路，就得到了最终的结果
 
-![step3](../../../assets/lec3.assets/image-5.png)
+![step3](./lec3.assets/image-5.png)
 
 最后把式子简化一下，可以得到和之前一样的结果
 
@@ -87,31 +87,31 @@ $$
 
 俗话说得好，只要肯做题，就有做不完的题。我们再来看看另一个例子。
 
-![sample2](../../../assets/lec3.assets/image-6.png)
+![sample2](./lec3.assets/image-6.png)
 
 先使用第六条，把 $H_2(s)$ 的分支入口后移到 $G_2(s)$ 的输出处
 
-![step1](../../../assets/lec3.assets/image-7.png)
+![step1](./lec3.assets/image-7.png)
 
 然后使用第一条消除级联的块
 
-![step2](../../../assets/lec3.assets/image-8.png)
+![step2](./lec3.assets/image-8.png)
 
 然后使用第一条和第七条，消除最右边的反馈回路
 
-![step3](../../../assets/lec3.assets/image-9.png)
+![step3](./lec3.assets/image-9.png)
 
 然后使用第一条，把级联的块合并成一个块
 
-![step4](../../../assets/lec3.assets/image-10.png)
+![step4](./lec3.assets/image-10.png)
 
 类似的，使用第七条，消除剩下的反馈回路
 
-![step5](../../../assets/lec3.assets/image-11.png)
+![step5](./lec3.assets/image-11.png)
 
 类似的，使用第一条和第七条，解决掉剩下的级联块和反馈回路
 
-![step6](../../../assets/lec3.assets/image-12.png)
+![step6](./lec3.assets/image-12.png)
 
 然后把这个叠了四层的东西化简，注意保持 san 值稳定
 
@@ -129,7 +129,7 @@ $$
 
 对于一个受扰动的闭环控制系统，为了抑制工厂稳态运行中的扰动，可以通过拆分传递函数来纳入对工厂的扰动。
 
-![disturbance](../../../assets/lec3.assets/image-13.png)
+![disturbance](./lec3.assets/image-13.png)
 
 对于上图中的系统， $N(s)$ 是扰动输入， $C(s)$ 是系统的输出， $R(s)$ 是系统的参考输入， $H(s)$ 是系统的反馈传递函数， $G_1(s)$ 是放大器的传递函数， $G_2(s)$ 是设备的传递函数。
 
@@ -149,7 +149,7 @@ $$
 
 化简后的框图如图所示：
 
-![R(x)](../../../assets/lec3.assets/image-14.png)
+![R(x)](./lec3.assets/image-14.png)
 
 而对于只考虑扰动输入 $N(s)$ 的情况，系统的输出 $C(s)$ 与 $N(s)$ 的关系可以表示为：
 
@@ -159,7 +159,7 @@ $$
 
 化简后的框图如图所示：
 
-![N(x)](../../../assets/lec3.assets/image-15.png)
+![N(x)](./lec3.assets/image-15.png)
 
 为了获得整体的响应，使用式子 $C(s) = C_R(s) + C_N(s)$，我们可以把两个单独的响应叠加起来：
 
@@ -179,7 +179,7 @@ $$
 
 尝试着计算出这个系统的等效传递函数
 
-![exercise](../../../assets/lec3.assets/image-16.png)
+![exercise](./lec3.assets/image-16.png)
 
 答案在 Moodle 上的 `Example Answer Lecture - III.pdf` 中
 

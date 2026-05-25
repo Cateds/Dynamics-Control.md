@@ -32,7 +32,7 @@ $$
 
 这里是考虑复数和重根的情况，所以对于一个 n 次多项式方程，它应该有 n 个根（包括复数根和重根）。这些根的位置对于系统的稳定性和动态响应有重要影响。我们可以把这些根画在复平面 (s-plane) 上：
 
-![s-plane](../../../assets/lec4.assets/image.png)
+![s-plane](./lec4.assets/image.png)
 
 一般用圈表示零点，用叉表示极点。
 
@@ -42,7 +42,7 @@ $$
 
 对于一个 **线性时不变系统 (LTI)** ，系统稳定性，指的是一个系统遇到一个瞬态响应是否会衰减。具体到我们刚刚提到的复平面上，指的就是极点的位置的横坐标——也就是实部的影响。
 
-![stability](../../../assets/lec4.assets/image-1.png)
+![stability](./lec4.assets/image-1.png)
 
 实部 $\sigma$ 的符号决定了系统的稳定性：小于 $0$ 的系统是稳定的，等于 $0$ 的系统是临界稳定的，大于 $0$ 的系统是不稳定的。
 
@@ -51,7 +51,7 @@ $$
 
 考虑以下 s 平面极点图，并对每个系统的稳定性情况进行评估。
 
-![exercise](../../../assets/lec4.assets/image-2.png)
+![exercise](./lec4.assets/image-2.png)
 
 <details>
 <summary>答案</summary>
@@ -61,7 +61,7 @@ $$
 - 对于 c，有一个极点的实部大于 $0$，因此系统是不稳定的。
 - 对于 d，同样的，有一个极点的实部大于 $0$，因此系统也是不稳定的。
 
-![answer](../../../assets/lec4.assets/image-3.png)
+![answer](./lec4.assets/image-3.png)
 
 </details>
 </details>

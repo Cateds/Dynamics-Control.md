@@ -17,7 +17,7 @@ description: 比例、积分、微分控制原理及PD、PI、PID组合策略，
 - 产生控制信号以减小偏差
 - 执行器、被控对象（Plant）和传感器的传递函数具有不同形式
 
-![basic-actions](../../../assets/lec5.assets/image.png)
+![basic-actions](./lec5.assets/image.png)
 
 ### 比例控制 (P, Proportional)
 
@@ -79,7 +79,7 @@ $$
 
 ## 闭环控制
 
-![pid](../../../assets/lec5.assets/image-1.png)
+![pid](./lec5.assets/image-1.png)
 
 如果有输出接入到输入端，我们就称之为闭环系统 (Closed-loop System)，反之则称之为开环系统 (Open-loop System)。
 
@@ -87,7 +87,7 @@ $$
 
 在没有受控的情况下，一个一阶系统的开环响应是如图所示的
 
-![1-order unit step](../../../assets/lec5.assets/image-2.png)
+![1-order unit step](./lec5.assets/image-2.png)
 
 $$
 \frac{C(s)}{R(s)} = \frac{1}{\tau s + 1}
@@ -95,7 +95,7 @@ $$
 
 而一个二阶系统类似，未受控的开环响应如下：
 
-![2-order unit step](../../../assets/lec5.assets/image-3.png)
+![2-order unit step](./lec5.assets/image-3.png)
 
 $$
 \frac{C(s)}{R(s)} = \frac{\omega_n^2}{s^2 + 2 \zeta \omega_n s + \omega_n^2}
@@ -105,11 +105,11 @@ $$
 
 如果对示例的一阶系统施加比例控制，则得到的系统如图所示
 
-![1-order proportional](../../../assets/lec5.assets/image-4.png)
+![1-order proportional](./lec5.assets/image-4.png)
 
 得到的结果如下
 
-![alt text](../../../assets/lec5.assets/image-5.png)
+![alt text](./lec5.assets/image-5.png)
 
 最终系统整体的闭环响应是
 
@@ -121,11 +121,11 @@ $$
 
 类似的，对于二阶系统有
 
-![2-order p](../../../assets/lec5.assets/image-8.png)
+![2-order p](./lec5.assets/image-8.png)
 
 得到的响应是
 
-![2-o p plot](../../../assets/lec5.assets/image-9.png)
+![2-o p plot](./lec5.assets/image-9.png)
 
 最终系统整体的闭环响应是
 
@@ -146,11 +146,11 @@ $$
 
 类似的，如果对示例的一阶系统施加比例微分控制，则得到的系统如图所示
 
-![1-order pd](../../../assets/lec5.assets/image-6.png)
+![1-order pd](./lec5.assets/image-6.png)
 
 得到的结果如下
 
-![alt text](../../../assets/lec5.assets/image-7.png)
+![alt text](./lec5.assets/image-7.png)
 
 最终系统整体的闭环响应是
 
@@ -167,7 +167,7 @@ $$
 <details>
 <summary>练习</summary>
 
-![exer](../../../assets/lec5.assets/image-10.png)
+![exer](./lec5.assets/image-10.png)
 
 <details>
 <summary>答案</summary>
