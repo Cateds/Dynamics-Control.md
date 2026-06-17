@@ -27,6 +27,16 @@ export default defineConfig({
           label: "GitHub",
           href: "https://github.com/cateds/dynamics-control.md",
         },
+        {
+          icon: "open-book",
+          label: "StudyHub",
+          href: "https://www.study-hub.store/",
+        },
+        {
+          icon: "seti:pdf",
+          label: "PDF",
+          href: "https://github.com/cateds/dynamics-control.md/releases",
+        },
       ],
       sidebar: [
         {
@@ -40,7 +50,7 @@ export default defineConfig({
         {
           label: "Part.2",
           autogenerate: { directory: "part.2" },
-        }
+        },
       ],
       lastUpdated: true,
       plugins: [

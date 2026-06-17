@@ -12,6 +12,7 @@ export default function starlightAnthropicTheme(): StarlightPlugin {
           components: {
             ...(config.components ?? {}),
             PageTitle: "./src/components/PageTitle.astro",
+            ContentPanel: "./src/components/ContentPanel.astro",
             ThemeProvider: "./src/components/ThemeProvider.astro",
             ThemeSelect: "./src/components/ThemeSelect.astro",
           },

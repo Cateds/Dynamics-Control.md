@@ -9,13 +9,13 @@ hero:
   # file: /public/miracle.jpg
   actions:
     - text: 开始阅读
-      link: /Dynamics-Control.md/part1/lec1/
+      link: /Dynamics-Control.md/preface/
       icon: right-arrow
     - text: GitHub
       link: https://github.com/Cateds/Dynamics-Control.md
       # icon: external
       variant: minimal
-    - text: PDF Version
+    - text: PDF
       link: https://github.com/Cateds/Dynamics-Control.md/releases
       variant: minimal
 ---

@@ -7,6 +7,8 @@ description: TODO
 >
 > Lecture @ 2026-4-14
 
+![neuro-firework](../../../assets/neuro-firework.jpg)
+
 ## 闭环控制
 
 ### PD

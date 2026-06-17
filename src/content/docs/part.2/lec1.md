@@ -3,6 +3,8 @@ title: 根轨迹分析 - I
 description: TODO
 ---
 
+![neuro-evolve](../../../assets/neuro-evolve.jpeg)
+
 ## 稳定性 (Stability)
 
 稳定性在系统里主要指的是 BIBO 稳定性 (Bounded-Input Bounded-Output Stability)，也就是系统的输入和输出都是有界的。对于线性系统来说，系统的稳定性可以通过系统的极点来判断，如果系统的极点都在左半平面，那么系统是稳定的；如果有极点在右半平面或者在虚轴上，那么系统是不稳定的。这一点在[之前](../part.1/lec4.md#系统稳定性)提到过。

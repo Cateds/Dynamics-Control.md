@@ -3,9 +3,11 @@ title: 控制系统稳定性
 description: 控制系统稳定性的概念和劳斯稳定判据
 ---
 
-> Title : **Control System Stability**
+> **_Control System Stability_**
 >
 > Lecture @ 2026-4-13
+
+![neuro-winter](../../../assets/neuro-winter.jpg)
 
 ## 传递函数性质
 

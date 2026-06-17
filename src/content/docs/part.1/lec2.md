@@ -3,9 +3,11 @@ title: 控制系统分析基础
 description: 介绍控制系统的基本概念，包括开环和闭环控制，设计流程，框图以及框图简化方法。
 ---
 
-> Title: **Basics of Control System Analysis**
+> **_Basics of Control System Analysis_**
 >
 > Lecture @ 2026-3-16
+
+![neuro-summer](../../../assets/neuro-summer.jpg)
 
 ## 控制系统简介
 

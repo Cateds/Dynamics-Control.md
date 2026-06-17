@@ -2,8 +2,6 @@
   (() => {
     const storageKey = "starlight-theme";
     const root = document.documentElement;
-    const reduceMotion = () =>
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const parseTheme = (theme) =>
       theme === "dark" || theme === "light" ? theme : null;
     const systemTheme = () =>
@@ -25,22 +23,8 @@
       get: currentTheme,
       set(theme) {
         const nextTheme = parseTheme(theme) || "light";
-        root.dataset.themeTransition = "";
-
-        const commit = () => {
-          localStorage.setItem(storageKey, nextTheme);
-          applyTheme(nextTheme);
-        };
-        const finish = () => {
-          delete root.dataset.themeTransition;
-        };
-
-        if (!reduceMotion() && document.startViewTransition) {
-          document.startViewTransition(commit).finished.finally(finish);
-        } else {
-          commit();
-          window.setTimeout(finish, 320);
-        }
+        localStorage.setItem(storageKey, nextTheme);
+        applyTheme(nextTheme);
       },
     });
 

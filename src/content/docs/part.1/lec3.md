@@ -3,9 +3,11 @@ title: 框图简化上手
 description: 介绍如何使用方框图简化规则来分析和设计控制系统，通过具体的例子来展示简化过程和叠加原理的应用。
 ---
 
-> Title: **Block Diagram Reduction**
+> ***Block Diagram Reduction***
 >
 > Lecture @ 2026-3-16
+
+![neuro-autumn](../../../assets/neuro-autumn.jpg)
 
 ## 使用方框图简化规则
 
