@@ -1,6 +1,6 @@
 ---
 title: 根轨迹分析 - I
-description: TODO
+description: 介绍根轨迹分析的目的、稳定性背景，以及根轨迹构造的基本规则。
 ---
 
 ![neuro-evolve](../../../assets/neuro-evolve.jpeg)

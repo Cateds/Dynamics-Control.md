@@ -3,7 +3,7 @@ title: 反馈控制系统性能与特性 - I
 description: 比例、积分、微分控制原理及PD、PI、PID组合策略，闭环与开环系统响应特性分析
 ---
 
-> Title: **Characteristics and Performance of Feedback Control Systems - I**
+> ***Characteristics and Performance of Feedback Control Systems - I***
 >
 > Lecture @ 2026-4-13
 
