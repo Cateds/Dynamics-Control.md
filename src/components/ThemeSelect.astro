@@ -1,0 +1,53 @@
+<dc-theme-toggle>
+  <button class="dc-theme-toggle" type="button" aria-label="切换至深色主题" aria-pressed="false">
+    <span class="dc-theme-toggle__track" aria-hidden="true">
+      <span class="dc-theme-toggle__icon dc-theme-toggle__icon--sun">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <path d="M12 4.25V2m0 20v-2.25M4.25 12H2m20 0h-2.25M6.7 6.7 5.1 5.1m13.8 13.8-1.6-1.6m0-10.6 1.6-1.6M5.1 18.9l1.6-1.6" />
+          <circle cx="12" cy="12" r="4.25" />
+        </svg>
+      </span>
+      <span class="dc-theme-toggle__thumb">
+        <span class="dc-theme-toggle__thumb-dot" />
+      </span>
+      <span class="dc-theme-toggle__icon dc-theme-toggle__icon--moon">
+        <svg viewBox="0 0 24 24" focusable="false">
+          <path d="M19.25 15.15A7.75 7.75 0 0 1 8.85 4.75 8.25 8.25 0 1 0 19.25 15.15Z" />
+        </svg>
+      </span>
+    </span>
+  </button>
+</dc-theme-toggle>
+
+<script>
+  class DCThemeToggle extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready) return;
+      this.dataset.ready = "true";
+
+      const button = this.querySelector("button");
+      if (!button) return;
+
+      const update = () => {
+        const isDark = document.documentElement.dataset.theme === "dark";
+        button.setAttribute("aria-pressed", String(isDark));
+        button.setAttribute("aria-label", isDark ? "切换至浅色主题" : "切换至深色主题");
+      };
+
+      button.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        const themeApi = Reflect.get(window, "DCTheme");
+        if (themeApi) themeApi.set(nextTheme);
+        else document.documentElement.dataset.theme = nextTheme;
+        update();
+      });
+
+      window.addEventListener("dc-theme-change", update);
+      update();
+    }
+  }
+
+  if (!customElements.get("dc-theme-toggle")) {
+    customElements.define("dc-theme-toggle", DCThemeToggle);
+  }
+</script>

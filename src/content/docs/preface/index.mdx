@@ -1,0 +1,18 @@
+---
+title: 目录
+---
+
+import { getCollection } from "astro:content";
+import IndexContent from "../../../components/IndexContent.astro";
+
+export const docs = await getCollection("docs");
+export const grouped = docs
+  .filter((doc) => doc.id !== "index")
+  .reduce((acc, doc) => {
+    const part = doc.id.split("/")[0];
+    if (!acc[part]) acc[part] = [];
+    acc[part].push(doc);
+    return acc;
+  }, {});
+
+<IndexContent grouped={grouped} />

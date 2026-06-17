@@ -1,0 +1,53 @@
+<script is:inline>
+  (() => {
+    const storageKey = "starlight-theme";
+    const root = document.documentElement;
+    const reduceMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const parseTheme = (theme) =>
+      theme === "dark" || theme === "light" ? theme : null;
+    const systemTheme = () =>
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const currentTheme = () => parseTheme(root.dataset.theme) || systemTheme();
+
+    function applyTheme(theme) {
+      root.dataset.theme = theme;
+      root.style.colorScheme = theme;
+      root.classList.toggle("dark", theme === "dark");
+      root.classList.toggle("light", theme === "light");
+      window.dispatchEvent(new CustomEvent("dc-theme-change", { detail: { theme } }));
+    }
+
+    const storedTheme = parseTheme(localStorage.getItem(storageKey));
+    applyTheme(storedTheme || systemTheme());
+
+    Reflect.set(window, "DCTheme", {
+      get: currentTheme,
+      set(theme) {
+        const nextTheme = parseTheme(theme) || "light";
+        root.dataset.themeTransition = "";
+
+        const commit = () => {
+          localStorage.setItem(storageKey, nextTheme);
+          applyTheme(nextTheme);
+        };
+        const finish = () => {
+          delete root.dataset.themeTransition;
+        };
+
+        if (!reduceMotion() && document.startViewTransition) {
+          document.startViewTransition(commit).finished.finally(finish);
+        } else {
+          commit();
+          window.setTimeout(finish, 320);
+        }
+      },
+    });
+
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => {
+        if (!parseTheme(localStorage.getItem(storageKey))) applyTheme(systemTheme());
+      });
+  })();
+</script>

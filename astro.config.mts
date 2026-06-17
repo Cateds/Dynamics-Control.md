@@ -4,8 +4,8 @@ import starlight from "@astrojs/starlight";
 import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
 } from "./plugin/starlight-relative-doc-links/index.mts";
+import starlightAnthropicTheme from "./plugin/starlight-anthropic-theme/index.mts";
 import { starlightKatex } from "starlight-katex";
-import starlightThemeNova from "starlight-theme-nova";
 
 const docsGenerateId = createStarlightDocsGenerateId();
 
@@ -30,6 +30,10 @@ export default defineConfig({
       ],
       sidebar: [
         {
+          label: "Preface",
+          autogenerate: { directory: "preface" },
+        },
+        {
           label: "Part.1",
           autogenerate: { directory: "part.1" },
         },
@@ -42,7 +46,7 @@ export default defineConfig({
       plugins: [
         starlightRelativeDocLinks({ generateId: docsGenerateId }),
         starlightKatex(),
-        starlightThemeNova(),
+        starlightAnthropicTheme(),
       ],
     }),
   ],

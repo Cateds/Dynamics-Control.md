@@ -1,0 +1,93 @@
+---
+import { existsSync, readFileSync } from "node:fs";
+import { isAbsolute, resolve } from "node:path";
+
+const { starlightRoute } = Astro.locals;
+const { entry, lang, lastUpdated } = starlightRoute;
+const PAGE_TITLE_ID = "_top";
+
+function getSourceText(filePath: string | undefined) {
+  if (!filePath) return "";
+
+  const resolved = isAbsolute(filePath) ? filePath : resolve(process.cwd(), filePath);
+  if (!existsSync(resolved)) return "";
+
+  return readFileSync(resolved, "utf-8")
+    .replace(/^---[\s\S]*?---/, "")
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/import\s+[\s\S]*?;\s*/g, " ");
+}
+
+const source = getSourceText(entry.filePath);
+const words = source.match(/[\u4E00-\u9FA5]|[a-zA-Z0-9_-]+/g) ?? [];
+const wordCount = words.length;
+const readTime = Math.max(1, Math.ceil(wordCount / 275));
+const formattedLastUpdated = lastUpdated?.toLocaleDateString(lang, {
+  dateStyle: "medium",
+  timeZone: "UTC",
+});
+---
+
+<header class="page-title-block">
+  <p class="page-meta">
+    <span class="meta-icon" aria-hidden="true">⏱</span>
+    <span>{wordCount.toLocaleString(lang)} 字</span>
+    <span aria-hidden="true">·</span>
+    <span>约 {readTime} 分钟</span>
+    {
+      formattedLastUpdated && (
+        <>
+          <span aria-hidden="true">·</span>
+          <span>最近更新：{formattedLastUpdated}</span>
+        </>
+      )
+    }
+  </p>
+  <h1 id={PAGE_TITLE_ID}>{entry.data.title}</h1>
+</header>
+
+<style>
+  @layer starlight.core {
+    .page-title-block {
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    h1 {
+      margin: 0.45rem 0 0;
+      color: var(--sl-color-white);
+      font-family: var(--dc-font-serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 2.5rem;
+    }
+
+    .page-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.5rem;
+      margin: 0;
+      color: var(--sl-color-gray-3);
+      font-family: var(--dc-font-ui);
+      font-size: 0.875rem;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    .meta-icon {
+      font-size: 0.95em;
+      opacity: 0.8;
+      filter: grayscale(0.45);
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 2rem;
+        line-height: 2.5rem;
+      }
+    }
+  }
+</style>
