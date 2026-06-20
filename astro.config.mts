@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
 import starlight from "@astrojs/starlight";
 import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
@@ -42,15 +41,15 @@ export default defineConfig({
       sidebar: [
         {
           label: "Preface",
-          autogenerate: { directory: "preface" },
+          items: [{ autogenerate: { directory: "preface" } }],
         },
         {
           label: "Part.1",
-          autogenerate: { directory: "part.1" },
+          items: [{ autogenerate: { directory: "part.1" } }],
         },
         {
           label: "Part.2",
-          autogenerate: { directory: "part.2" },
+          items: [{ autogenerate: { directory: "part.2" } }],
         },
       ],
       lastUpdated: true,
@@ -60,6 +59,5 @@ export default defineConfig({
         starlightAnthropicTheme(),
       ],
     }),
-    mdx(),
   ],
 });

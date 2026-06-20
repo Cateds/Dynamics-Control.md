@@ -1,7 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { parseFrontmatter } from "@astrojs/markdown-remark";
+import {
+  isUnifiedProcessor,
+  parseFrontmatter,
+  unified,
+  type UnifiedResolvedOptions,
+} from "@astrojs/markdown-remark";
 import type { AstroIntegration, AstroIntegrationLogger } from "astro";
 import { slug as githubSlug } from "github-slugger";
 import type { Definition, Link, Nodes, Root } from "mdast";
@@ -94,6 +99,16 @@ function createAstroIntegration(options: ResolvedRelativeDocLinksPluginOptions):
       "astro:config:setup"({ config, updateConfig, logger }: AstroConfigSetupOptions) {
         const docsRoot = fileURLToPath(new URL("./src/content/docs/", config.root));
         const docsRootUrl = directoryPathToFileUrl(docsRoot);
+        const existingProcessor = config.markdown?.processor;
+        const processorOptions: Partial<UnifiedResolvedOptions> =
+          existingProcessor && isUnifiedProcessor(existingProcessor) ? existingProcessor.options : {};
+        const {
+          processor: _processor,
+          remarkPlugins: markdownRemarkPlugins = [],
+          rehypePlugins: markdownRehypePlugins,
+          remarkRehype: markdownRemarkRehype,
+          ...markdownConfig
+        } = config.markdown ?? {};
         const remarkPlugin: [typeof remarkRelativeDocLinks, RemarkRelativeDocLinksOptions] = [
           remarkRelativeDocLinks,
           {
@@ -110,8 +125,14 @@ function createAstroIntegration(options: ResolvedRelativeDocLinksPluginOptions):
 
         updateConfig({
           markdown: {
-            ...(config.markdown ?? {}),
-            remarkPlugins: [...(config.markdown?.remarkPlugins ?? []), remarkPlugin],
+            ...markdownConfig,
+            processor: unified({
+              remarkPlugins: [...(processorOptions.remarkPlugins ?? markdownRemarkPlugins), remarkPlugin],
+              rehypePlugins: processorOptions.rehypePlugins ?? markdownRehypePlugins,
+              remarkRehype: processorOptions.remarkRehype ?? markdownRemarkRehype,
+              gfm: processorOptions.gfm ?? markdownConfig.gfm,
+              smartypants: processorOptions.smartypants ?? markdownConfig.smartypants,
+            }),
           },
         });
       },
