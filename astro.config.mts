@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 import starlight from "@astrojs/starlight";
 import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
@@ -59,5 +60,6 @@ export default defineConfig({
         starlightAnthropicTheme(),
       ],
     }),
+    mdx(),
   ],
 });

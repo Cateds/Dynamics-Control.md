@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import IndexContent from "./IndexContent.astro";
+
+const docs = await getCollection("docs");
+const grouped = docs
+  .filter((doc) => /^part\.?\d+\//.test(doc.id))
+  .reduce<Record<string, CollectionEntry<"docs">[]>>((acc, doc) => {
+    const part = doc.id.split("/")[0];
+    if (!acc[part]) acc[part] = [];
+    acc[part].push(doc);
+    return acc;
+  }, {});
+---
+
+<div class="course-index-shell">
+  <IndexContent grouped={grouped} />
+</div>
+
+<style>
+  @layer starlight.core {
+    :global(html:has(.course-index-shell)) {
+      --sl-mobile-toc-height: 0rem;
+    }
+
+    :global(.page:has(.course-index-shell) .content-panel .sl-container) {
+      max-width: min(100%, 78rem);
+    }
+
+    :global(.page:has(.course-index-shell) .page-title-block) {
+      margin-inline: 0;
+      text-align: start;
+    }
+
+    @media (min-width: 50rem) {
+      :global(html:not([data-has-toc]):has(.course-index-shell)) {
+        --__toc-width: var(--sl-sidebar-width);
+      }
+    }
+
+    :global(.page:has(.course-index-shell) .right-sidebar-container),
+    :global(.page:has(.course-index-shell) mobile-starlight-toc) {
+      display: none !important;
+    }
+
+    @media (min-width: 72rem) {
+      :global(.page:has(.course-index-shell) .main-pane) {
+        order: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
+</style>

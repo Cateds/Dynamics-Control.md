@@ -1,46 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import Footer from "virtual:starlight/components/Footer";
-import IndexContent from "./IndexContent.astro";
-
-const isPrefaceIndex = Astro.locals.starlightRoute.entry.id === "preface/index";
-const slotHtml = isPrefaceIndex ? await Astro.slots.render("default") : "";
-const shouldRenderCourseIndex = isPrefaceIndex && slotHtml.includes("sl-markdown-content");
-
-const docs: CollectionEntry<"docs">[] = shouldRenderCourseIndex ? await getCollection("docs") : [];
-const grouped = docs
-  .filter((doc) => /^part\.?\d+\//.test(doc.id))
-  .reduce<Record<string, CollectionEntry<"docs">[]>>((acc, doc) => {
-    const part = doc.id.split("/")[0];
-    if (!acc[part]) acc[part] = [];
-    acc[part].push(doc);
-    return acc;
-  }, {});
 ---
 
-<div
-  class:list={[
-    "content-panel",
-    isPrefaceIndex && !shouldRenderCourseIndex && "content-panel--course-title",
-    shouldRenderCourseIndex && "content-panel--course-index",
-  ]}
->
+<div class="content-panel">
   <div class="sl-container">
-    {
-      shouldRenderCourseIndex ? (
-        <>
-          <div class="sl-markdown-content">
-            <IndexContent grouped={grouped} />
-          </div>
-          <Footer />
-        </>
-      ) : isPrefaceIndex ? (
-        <Fragment set:html={slotHtml} />
-      ) : (
-        <slot />
-      )
-    }
+    <slot />
   </div>
 </div>
 
@@ -56,32 +19,6 @@ const grouped = docs
 
     .sl-container {
       max-width: var(--sl-content-width);
-    }
-
-    .content-panel--course-title .sl-container,
-    .content-panel--course-index .sl-container {
-      max-width: min(100%, 78rem);
-    }
-
-    .content-panel--course-title :global(.page-title-block) {
-      margin-inline: 0;
-      text-align: start;
-    }
-
-    :global(html:has(.content-panel--course-index)) {
-      --sl-mobile-toc-height: 0rem;
-    }
-
-    :global(.page:has(.content-panel--course-index) .right-sidebar-container),
-    :global(.page:has(.content-panel--course-index) mobile-starlight-toc) {
-      display: none !important;
-    }
-
-    @media (min-width: 72rem) {
-      :global(.page:has(.content-panel--course-index) .main-pane) {
-        order: 0 !important;
-        width: 100% !important;
-      }
     }
 
     .sl-container > :global(* + *) {
