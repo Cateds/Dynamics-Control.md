@@ -101,7 +101,9 @@ function createAstroIntegration(options: ResolvedRelativeDocLinksPluginOptions):
         const docsRootUrl = directoryPathToFileUrl(docsRoot);
         const existingProcessor = config.markdown?.processor;
         const processorOptions: Partial<UnifiedResolvedOptions> =
-          existingProcessor && isUnifiedProcessor(existingProcessor) ? existingProcessor.options : {};
+          existingProcessor && isUnifiedProcessor(existingProcessor)
+            ? existingProcessor.options
+            : {};
         const {
           processor: _processor,
           remarkPlugins: markdownRemarkPlugins = [],
@@ -127,7 +129,10 @@ function createAstroIntegration(options: ResolvedRelativeDocLinksPluginOptions):
           markdown: {
             ...markdownConfig,
             processor: unified({
-              remarkPlugins: [...(processorOptions.remarkPlugins ?? markdownRemarkPlugins), remarkPlugin],
+              remarkPlugins: [
+                ...(processorOptions.remarkPlugins ?? markdownRemarkPlugins),
+                remarkPlugin,
+              ],
               rehypePlugins: processorOptions.rehypePlugins ?? markdownRehypePlugins,
               remarkRehype: processorOptions.remarkRehype ?? markdownRemarkRehype,
               gfm: processorOptions.gfm ?? markdownConfig.gfm,

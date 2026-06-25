@@ -55,13 +55,17 @@ async function main() {
 
   const urls = allUrls.filter((url) => {
     const pathname = new URL(url).pathname;
-    return pathname !== "/Dynamics-Control.md/" &&
-           pathname !== "/Dynamics-Control.md/index.html" &&
-           pathname !== "/Dynamics-Control.md";
+    return (
+      pathname !== "/Dynamics-Control.md/" &&
+      pathname !== "/Dynamics-Control.md/index.html" &&
+      pathname !== "/Dynamics-Control.md"
+    );
   });
 
   const pathPrefix = "/Dynamics-Control.md";
-  console.log(`   Found ${urls.length} content pages (skipped homepage), path prefix: "${pathPrefix}"`);
+  console.log(
+    `   Found ${urls.length} content pages (skipped homepage), path prefix: "${pathPrefix}"`,
+  );
 
   const server = http.createServer((req, res) => {
     serveHandler(req, res, {
@@ -151,8 +155,9 @@ async function main() {
             });
 
             const title =
-              document.querySelector("h1#_top")?.textContent
-                ?.replace(/[\u200B\u200C\u200D\uFEFF]/g, "")
+              document
+                .querySelector("h1#_top")
+                ?.textContent?.replace(/[\u200B\u200C\u200D\uFEFF]/g, "")
                 .trim() ||
               document.title ||
               "";
@@ -164,8 +169,7 @@ async function main() {
             const parts = task.localPath.replace(/\/$/, "").split("/").filter(Boolean);
             const folder = parts.length > 0 ? parts[0] : ".";
             const fileName = parts.length > 1 ? parts[parts.length - 1] : "index";
-            const sortKey =
-              fileName === "index" ? `${folder}/__00_index` : `${folder}/${fileName}`;
+            const sortKey = fileName === "index" ? `${folder}/__00_index` : `${folder}/${fileName}`;
 
             articles.push({
               path: task.localPath,
@@ -219,14 +223,16 @@ async function main() {
 
     await pdfPage.evaluate(async () => {
       const imgs = Array.from(document.querySelectorAll("img"));
-      await Promise.all(imgs.map((img) => {
-        if (img.complete) return Promise.resolve();
-        return new Promise<void>((resolve) => {
-          img.onload = () => resolve();
-          img.onerror = () => resolve();
-          setTimeout(() => resolve(), 5000);
-        });
-      }));
+      await Promise.all(
+        imgs.map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise<void>((resolve) => {
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            setTimeout(() => resolve(), 5000);
+          });
+        }),
+      );
     });
 
     await pdfPage.pdf({
@@ -248,7 +254,9 @@ async function main() {
 
     await pdfPage.close();
 
-    try { unlinkSync(tempHtmlPath); } catch {}
+    try {
+      unlinkSync(tempHtmlPath);
+    } catch {}
 
     const size = (readFileSync(OUTPUT_FILE).byteLength / 1024 / 1024).toFixed(1);
     console.log(`\n✅ PDF saved: ${OUTPUT_FILE} (${size} MB)`);

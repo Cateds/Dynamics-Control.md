@@ -24,13 +24,11 @@ interface ArticleData {
   sortKey: string;
 }
 
-export function buildHtml(
-  articles: ArticleData[],
-  opts: BuildHtmlOptions,
-): string {
+export function buildHtml(articles: ArticleData[], opts: BuildHtmlOptions): string {
   let tocHtml = "";
   for (const part of opts.parts) {
-    const end = opts.parts.find((p) => p.startIndex > part.startIndex)?.startIndex ?? articles.length;
+    const end =
+      opts.parts.find((p) => p.startIndex > part.startIndex)?.startIndex ?? articles.length;
     tocHtml += `<div class="toc-group">
     <h3>${escapeHtml(part.label)}</h3>
     <ul>`;
