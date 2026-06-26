@@ -57,8 +57,6 @@ $$
 
 ![exer-pd](./lec6.assets/image-2.png)
 
-这题主要是在练：先从未控制系统的分母读出 $\omega_n$ 和 $\zeta$，再分别加入 P 和 PD 控制，比较闭环自然频率、阻尼比、稳态误差和最大超调。
-
 </details>
 
 ### I
@@ -75,7 +73,7 @@ $$
 
 对于一个一阶系统，接入积分控制后的结构如下：
 
-![first-order integral](./lec6.assets/image-3.png)
+![integral](lec6.assets/image-3.png)
 
 原本被控对象是
 
@@ -112,7 +110,7 @@ $$
 
 所以，$K_i$ 增大时，系统的自然频率会提高，响应更快；但是阻尼比会下降，系统更容易出现振荡和超调。
 
-![first-order integral response](./lec6.assets/image-4.png)
+![alt text](lec6.assets/image-4.png)
 
 从图里也能看出来，$K_i=20$ 的情况快是快了，但是也更能蹦。
 
@@ -120,7 +118,7 @@ $$
 
 对于二阶系统，接入积分控制后则变成：
 
-![second-order integral](./lec6.assets/image-5.png)
+![alt text](lec6.assets/image-5.png)
 
 如果原系统是
 
@@ -159,7 +157,7 @@ $$
 
 对于一阶系统，结构如下：
 
-![first-order pi](./lec6.assets/image-6.png)
+![alt text](lec6.assets/image-6.png)
 
 闭环传递函数为
 
@@ -182,9 +180,9 @@ $$
 \end{aligned}
 $$
 
-这里的分工就很清楚了：$K_i$ 主要影响自然频率，$K_p$ 主要提高阻尼。也就是说，积分项负责把稳态误差干掉，比例项负责让它不要干得太癫。
+这里的分工就很清楚了：$K_i$ 主要影响自然频率，$K_p$ 主要提高阻尼。
 
-![first-order pi response](./lec6.assets/image-7.png)
+![alt text](lec6.assets/image-7.png)
 
 和单纯积分控制相比，PI 控制通常可以在保持零稳态误差的同时，让振荡没那么离谱。
 
@@ -192,7 +190,7 @@ $$
 
 对于二阶系统，结构如下：
 
-![second-order pi](./lec6.assets/image-8.png)
+![alt text](lec6.assets/image-8.png)
 
 闭环传递函数会变成三阶：
 
@@ -218,7 +216,7 @@ $$
 
 对于一阶系统，有
 
-![first-order pid](./lec6.assets/image-9.png)
+![alt text](lec6.assets/image-9.png)
 
 闭环传递函数为
 
@@ -235,7 +233,7 @@ $$
 \end{aligned}
 $$
 
-![first-order pid response](./lec6.assets/image-10.png)
+![alt text](lec6.assets/image-10.png)
 
 这时三个参数的效果可以粗略理解为：
 
@@ -243,11 +241,11 @@ $$
 - $K_i$：消除稳态误差，但太大容易振荡
 - $K_d$：增加预测/阻尼效果，让响应更稳，但也更容易放大噪声
 
-> 三个旋钮一起调，听起来很强，实际调起来也确实很折磨。
+> 典中典之 PID 调参噩梦
 
-PPT 上还给了不同参数组合下的响应对比：
+PPT 给了不同参数组合下的响应对比：
 
-![pid comparison](./lec6.assets/image-11.png)
+![alt text](lec6.assets/image-11.png)
 
 从图上大致可以看到，合理的 $K_d$ 可以把响应压稳，但参数组合不合理时，超调、振荡、响应速度都会跟着变得很难看。
 
@@ -255,7 +253,7 @@ PPT 上还给了不同参数组合下的响应对比：
 
 对于二阶系统，PID 控制结构如下：
 
-![second-order pid](./lec6.assets/image-12.png)
+![alt text](lec6.assets/image-12.png)
 
 闭环传递函数可以写成
 
@@ -273,5 +271,3 @@ $$
 - I：消除稳态误差，但会提高阶数并可能带来振荡
 - PI：用比例项补积分项的阻尼问题，是很常见的工程组合
 - PID：三项全上，调好了很强，调不好也很热闹
-
-到这里，时域响应和基本控制动作差不多讲完了。后面就要开始用根轨迹、频率响应、Bode 图、Nyquist 图这些工具来系统地分析和设计控制器了。
