@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && bun run llms",
     "preview": "astro preview",
     "fmt": "oxfmt .",
     "astro": "astro",
+    "llms": "bun run utils/generate-llms.ts",
     "export-pdf": "bun run utils/export-pdf.ts"
   },
   "dependencies": {
