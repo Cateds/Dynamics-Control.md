@@ -1,10 +1,4 @@
-import {
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { posix } from "node:path";
@@ -83,9 +77,7 @@ export function writeLlmsFiles(options: WriteLlmsOptions = {}): WriteLlmsResult 
     return outputPath;
   });
 
-  options.log?.(
-    `Generated ${outputFiles.map((file) => toProjectPath(root, file)).join(" and ")}`,
-  );
+  options.log?.(`Generated ${outputFiles.map((file) => toProjectPath(root, file)).join(" and ")}`);
 
   return { ...result, outputFiles };
 }
@@ -422,10 +414,7 @@ function routeSegmentFor(segment: string): string {
 }
 
 function siteUrlFor(relPath: string): string {
-  return new URL(
-    relPath.split("/").map(encodeURIComponent).join("/"),
-    SITE_URL,
-  ).toString();
+  return new URL(relPath.split("/").map(encodeURIComponent).join("/"), SITE_URL).toString();
 }
 
 function rawGitHubUrlFor(repositoryPath: string): string {

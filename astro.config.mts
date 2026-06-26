@@ -10,11 +10,7 @@ import starlightRelativeDocLinks, {
 import starlightAnthropicTheme from "./plugin/starlight-anthropic-theme/index.mts";
 import { starlightKatex } from "starlight-katex";
 import { courseSections } from "./course.config";
-import {
-  buildLlmsFiles,
-  isLlmsSourcePath,
-  type LlmsFile,
-} from "./utils/generate-llms";
+import { buildLlmsFiles, isLlmsSourcePath, type LlmsFile } from "./utils/generate-llms";
 
 const docsGenerateId = createStarlightDocsGenerateId();
 
@@ -25,9 +21,7 @@ function llmsDevPlugin(): Plugin {
   function refresh(log: (message: string) => void) {
     const result = buildLlmsFiles();
     files = new Map(result.files.map((file) => [file.fileName, file.content]));
-    log(
-      `Generated in-memory ${result.files.map((file) => file.fileName).join(" and ")}`,
-    );
+    log(`Generated in-memory ${result.files.map((file) => file.fileName).join(" and ")}`);
   }
 
   function fileNameFromUrl(rawUrl: string | undefined): LlmsFile["fileName"] | undefined {
@@ -48,19 +42,17 @@ function llmsDevPlugin(): Plugin {
     },
     configureServer(server: ViteDevServer) {
       refresh((message) => server.config.logger.info(message));
-      server.middlewares.use(
-        (req: IncomingMessage, res: ServerResponse, next: () => void) => {
-          const fileName = fileNameFromUrl(req.url);
-          if (!fileName) return next();
+      server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
+        const fileName = fileNameFromUrl(req.url);
+        if (!fileName) return next();
 
-          const content = files.get(fileName);
-          if (!content) return next();
+        const content = files.get(fileName);
+        if (!content) return next();
 
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "text/plain; charset=utf-8");
-          res.end(content);
-        },
-      );
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain; charset=utf-8");
+        res.end(content);
+      });
       server.watcher.add([
         path.resolve(process.cwd(), "src/content/docs"),
         path.resolve(process.cwd(), "course.config.ts"),

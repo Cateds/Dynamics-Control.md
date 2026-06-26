@@ -4,10 +4,7 @@ function normalizePath(p: string): string {
   return p.replace(/\/+$/, "") || "/";
 }
 
-export function rewriteInternalLinks(
-  articles: ArticleData[],
-  pathPrefix: string,
-): ArticleData[] {
+export function rewriteInternalLinks(articles: ArticleData[], pathPrefix: string): ArticleData[] {
   const pathToIndex = new Map<string, number>();
   for (let i = 0; i < articles.length; i++) {
     const p = normalizePath(articles[i].path);
@@ -26,13 +23,10 @@ export function rewriteInternalLinks(
         `<${tag}${before} id="page-${i}--${id}"`,
     );
 
-    content = content.replace(
-      /\shref="([^"]*)"/gi,
-      (_m: string, rawHref: string) => {
-        const newHref = resolveHref(rawHref, pathPrefix, pathToIndex, i);
-        return ` href="${newHref}"`;
-      },
-    );
+    content = content.replace(/\shref="([^"]*)"/gi, (_m: string, rawHref: string) => {
+      const newHref = resolveHref(rawHref, pathPrefix, pathToIndex, i);
+      return ` href="${newHref}"`;
+    });
 
     articles[i].content = content;
   }
@@ -58,9 +52,7 @@ function resolveHref(
     return `#page-${currentArticleIndex}--${rawHref.slice(1)}`;
   }
 
-  if (
-    /\.(css|js|png|jpg|jpeg|gif|svg|woff2?|ttf|eot|ico|pdf|zip|webp)$/i.test(rawHref)
-  ) {
+  if (/\.(css|js|png|jpg|jpeg|gif|svg|woff2?|ttf|eot|ico|pdf|zip|webp)$/i.test(rawHref)) {
     return rawHref;
   }
 
