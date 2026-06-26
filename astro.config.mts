@@ -51,6 +51,10 @@ export default defineConfig({
           label: "Part.2",
           items: [{ autogenerate: { directory: "part.2" } }],
         },
+        {
+          label: "Tutorials",
+          items: [{ autogenerate: { directory: "tutorials" } }],
+        },
       ],
       lastUpdated: true,
       plugins: [

@@ -3,7 +3,7 @@ title: 反馈控制系统性能与特性 - I
 description: 比例、积分、微分控制原理及PD、PI、PID组合策略，闭环与开环系统响应特性分析
 ---
 
-> ***Characteristics and Performance of Feedback Control Systems - I***
+> **_Characteristics and Performance of Feedback Control Systems - I_**
 >
 > Lecture @ 2026-4-13
 
@@ -111,7 +111,7 @@ $$
 
 得到的结果如下
 
-![alt text](./lec5.assets/image-5.png)
+![first-order-p-response](./lec5.assets/image-5.png)
 
 最终系统整体的闭环响应是
 
@@ -152,7 +152,7 @@ $$
 
 得到的结果如下
 
-![alt text](./lec5.assets/image-7.png)
+![first-order-pd-response](./lec5.assets/image-7.png)
 
 最终系统整体的闭环响应是
 

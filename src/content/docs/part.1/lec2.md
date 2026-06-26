@@ -76,7 +76,7 @@ $$
 
 我们可以把框图简化成一个简单的传递函数，它关联单个输入与单个输出，可以通过应用七条基本规则来实现
 
-![alt text](./lec2.assets/image-8.png)
+![block-diagram-rules](./lec2.assets/image-8.png)
 
 ## 框图简化
 
