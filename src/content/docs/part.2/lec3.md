@@ -23,7 +23,7 @@ Bode 图 (Bode Plot / Bode Diagram) 则换了一种表达方式：不用一张�
 <details>
 <summary>复习例题：从 Nyquist 图过渡过来</summary>
 
-这一讲开头还先复习了两个 Nyquist 图例子。第一个是
+开头先复习了两个 Nyquist 图的题，第一个是
 
 $$
 H(s)=\frac{10}{s(s+2)}
@@ -81,7 +81,7 @@ $$
 \angle(G_1G_2)=\angle G_1 + \angle G_2
 $$
 
-所以 Bode 图的画法本质上就是：拆因子，分别画，再叠加。
+所以 Bode 图的画法说穿了就是：拆因子，分别画，再一层层叠上去。
 
 ## 时间常数形式 (Time Constant Form)
 
@@ -176,11 +176,11 @@ $$
 
 ![component-sum](./lec3.assets/image-6.png)
 
-> 这也是为什么 Bode 图比 Nyquist 图更适合手画：它把复数乘法拆成了若干条直线相加。
+> 所以说 Bode 图手画比 Nyquist 友好，把复数乘法拆成直线相加就行。
 
 ## 画 Bode 图的流程
 
-PPT 给的步骤可以整理成：
+大概步骤就是：
 
 1. 把开环传递函数写成 $G(j\omega)H(j\omega)$
 2. 化成时间常数形式
@@ -301,13 +301,4 @@ $$
 
 </details>
 
-## 小结
-
-这一讲主要是 Bode 图的基本画法：
-
-- Bode 图由幅值图和相位图组成
-- 幅值用 $20\log_{10}|G(j\omega)|$ 表示
-- 复杂系统可以拆成基本组件后叠加
-- 时间常数形式能直接读出 corner frequency
-- 积分项、lead、lag、二阶项都有固定的渐近线规律
-- 延迟项幅值不变，但会带来持续增加的相位滞后
+> Bode 图的核心是把传递函数拆成基本组件，各画各的再叠加。化成时间常数形式直接读 corner frequency，积分/lead/lag/二阶项各有固定的渐近线规律，延迟项幅值不变但相位持续下降。
