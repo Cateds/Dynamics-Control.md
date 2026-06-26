@@ -15,19 +15,24 @@ export const courseSections: CourseSection[] = [
     label: "Part.1",
     directory: "part.1",
     showInIndex: true,
-    indexLabel: "Part 1",
     showInPdf: true,
   },
   {
     label: "Part.2",
     directory: "part.2",
     showInIndex: true,
-    indexLabel: "Part 2",
     showInPdf: true,
   },
   {
     label: "Tutorials",
     directory: "tutorials",
+    showInIndex: true,
+    showInPdf: true,
+  },
+  {
+    label: "Extra",
+    directory: "extra",
+    showInIndex: true,
     showInPdf: true,
   },
 ];

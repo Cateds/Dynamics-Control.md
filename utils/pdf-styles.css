@@ -34,6 +34,18 @@ html {
   --dc-glass-border: rgb(236 235 231 / 0.88);
   --dc-shadow-sm: 0 1px 3px rgb(20 20 19 / 0.06);
   --dc-shadow-md: 0 12px 32px rgb(20 20 19 / 0.1);
+  --dc-c-aside-note-bg: rgb(230 242 239 / 0.72);
+  --dc-c-aside-note-border: #86aaa4;
+  --dc-c-aside-note-accent: #3f6f69;
+  --dc-c-aside-tip-bg: rgb(236 241 232 / 0.72);
+  --dc-c-aside-tip-border: #9baa8d;
+  --dc-c-aside-tip-accent: #5f704f;
+  --dc-c-aside-caution-bg: rgb(250 236 228 / 0.76);
+  --dc-c-aside-caution-border: #d49a7e;
+  --dc-c-aside-caution-accent: #9c543d;
+  --dc-c-aside-danger-bg: rgb(246 232 228 / 0.76);
+  --dc-c-aside-danger-border: #c99587;
+  --dc-c-aside-danger-accent: #8f5045;
 
   --sl-color-white: var(--dc-c-dark);
   --sl-color-gray-1: var(--dc-c-dark);
@@ -49,18 +61,18 @@ html {
   --sl-color-accent-high: var(--dc-c-orange-strong);
   --sl-color-bg-inline-code: rgb(217 119 87 / 0.07);
   --sl-color-border-inline-code: rgb(217 119 87 / 0.18);
-  --sl-color-blue-low: oklch(93.2% 0.032 255.585);
-  --sl-color-blue: oklch(70.7% 0.165 254.624);
-  --sl-color-blue-high: oklch(42.4% 0.199 265.638);
-  --sl-color-purple-low: oklch(94.6% 0.033 307.174);
-  --sl-color-purple: oklch(71.4% 0.203 305.504);
-  --sl-color-purple-high: oklch(43.8% 0.218 303.724);
+  --sl-color-blue-low: var(--dc-c-aside-note-bg);
+  --sl-color-blue: var(--dc-c-aside-note-border);
+  --sl-color-blue-high: var(--dc-c-aside-note-accent);
+  --sl-color-purple-low: var(--dc-c-aside-tip-bg);
+  --sl-color-purple: var(--dc-c-aside-tip-border);
+  --sl-color-purple-high: var(--dc-c-aside-tip-accent);
   --sl-color-orange-low: var(--dc-c-orange-soft);
   --sl-color-orange: var(--dc-c-orange);
   --sl-color-orange-high: var(--dc-c-orange-strong);
-  --sl-color-red-low: oklch(93.6% 0.032 17.717);
-  --sl-color-red: oklch(70.4% 0.191 22.216);
-  --sl-color-red-high: oklch(44.4% 0.177 26.899);
+  --sl-color-red-low: var(--dc-c-aside-danger-bg);
+  --sl-color-red: var(--dc-c-aside-danger-border);
+  --sl-color-red-high: var(--dc-c-aside-danger-accent);
   --sl-color-green-low: oklch(96.2% 0.044 156.743);
   --sl-color-green: oklch(79.2% 0.209 151.711);
   --sl-color-green-high: oklch(44.8% 0.119 151.328);
@@ -510,29 +522,47 @@ body {
 }
 
 .a-content .starlight-aside {
+  --dc-aside-accent: var(--dc-c-orange-strong);
+
   break-inside: avoid;
   margin: 0.72em 0;
   border: 1px solid var(--dc-glass-border);
-  border-inline-start: 3px solid var(--dc-c-orange);
+  border-inline-start: 3px solid var(--dc-aside-accent);
   border-radius: 8px;
   background: #ffffff;
   padding: 0.72em 0.86em;
 }
 
 .a-content .starlight-aside--note {
-  border-inline-start-color: var(--sl-color-blue-high);
+  --dc-aside-accent: var(--dc-c-aside-note-accent);
+
+  border-color: var(--dc-c-aside-note-border);
+  border-inline-start-color: var(--dc-aside-accent);
+  background: var(--dc-c-aside-note-bg);
 }
 
 .a-content .starlight-aside--tip {
-  border-inline-start-color: var(--sl-color-purple-high);
+  --dc-aside-accent: var(--dc-c-aside-tip-accent);
+
+  border-color: var(--dc-c-aside-tip-border);
+  border-inline-start-color: var(--dc-aside-accent);
+  background: var(--dc-c-aside-tip-bg);
 }
 
 .a-content .starlight-aside--caution {
-  border-inline-start-color: var(--dc-c-orange);
+  --dc-aside-accent: var(--dc-c-aside-caution-accent);
+
+  border-color: var(--dc-c-aside-caution-border);
+  border-inline-start-color: var(--dc-aside-accent);
+  background: var(--dc-c-aside-caution-bg);
 }
 
 .a-content .starlight-aside--danger {
-  border-inline-start-color: var(--sl-color-red-high);
+  --dc-aside-accent: var(--dc-c-aside-danger-accent);
+
+  border-color: var(--dc-c-aside-danger-border);
+  border-inline-start-color: var(--dc-aside-accent);
+  background: var(--dc-c-aside-danger-bg);
 }
 
 .a-content .starlight-aside__title {
@@ -540,7 +570,7 @@ body {
   align-items: center;
   gap: 0.32em;
   margin-bottom: 0.25em;
-  color: var(--dc-c-dark);
+  color: var(--dc-aside-accent);
   font-family: var(--dc-font-ui);
   font-size: 10pt;
   font-weight: 700;
@@ -549,7 +579,7 @@ body {
 .a-content .starlight-aside__icon {
   width: 15px;
   height: 15px;
-  color: var(--dc-c-orange);
+  color: var(--dc-aside-accent);
 }
 
 .a-content .starlight-aside__content,

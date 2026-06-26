@@ -80,17 +80,22 @@ function resolveImage(docKey: string, imagePath?: string) {
   return image?.src;
 }
 
-function compareLecture(a: Article, b: Article) {
-  return Number(a.id.match(/lec(\d+)/)?.[1] ?? 0) - Number(b.id.match(/lec(\d+)/)?.[1] ?? 0);
+function compareArticle(a: Article, b: Article) {
+  return a.id.localeCompare(b.id, undefined, { numeric: true });
 }
 
 function sectionTitle(section: Section) {
   return section.indexLabel ?? section.label;
 }
 
-function lectureLabel(article: Article) {
+function articleLabel(section: Section, article: Article) {
   const lecture = article.id.match(/lec(\d+)/)?.[1];
-  return lecture ? `Lecture ${lecture}` : "Lecture";
+  if (lecture) return `Lecture ${lecture}`;
+
+  const tutorial = article.id.match(/p(\d+)t(\d+)/);
+  if (tutorial) return `Part ${tutorial[1]} Tutorial ${tutorial[2]}`;
+
+  return section.label;
 }
 
 function sourcePathFromArticle(section: Section, article: Article) {
@@ -107,7 +112,7 @@ function toCard(section: Section, article: Article): CourseCard {
 
   return {
     href: `../${article.id}/`,
-    eyebrow: lectureLabel(article),
+    eyebrow: articleLabel(section, article),
     title: article.data.title,
     description: article.data.description || "No description yet.",
     imageSrc: resolveImage(docKey, imagePath),
@@ -121,7 +126,7 @@ function toCard(section: Section, article: Article): CourseCard {
       <section class="course-part" aria-labelledby={`${section.directory}-title`}>
         <h2 id={`${section.directory}-title`}>{sectionTitle(section)}</h2>
         <div class="course-card-grid">
-          {articles.sort(compareLecture).map((article) => {
+          {articles.sort(compareArticle).map((article) => {
             const card = toCard(section, article);
             return (
               <a class="course-card" href={card.href}>

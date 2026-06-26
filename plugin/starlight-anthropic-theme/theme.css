@@ -39,6 +39,18 @@
   --dc-c-sidebar-right: rgb(255 254 253 / 0.68);
   --dc-c-blockquote-bg: rgb(251 250 247 / 0.82);
   --dc-c-card-bg: rgb(255 255 253 / 0.9);
+  --dc-c-aside-note-bg: rgb(230 242 239 / 0.72);
+  --dc-c-aside-note-border: #86aaa4;
+  --dc-c-aside-note-accent: #3f6f69;
+  --dc-c-aside-tip-bg: rgb(236 241 232 / 0.72);
+  --dc-c-aside-tip-border: #9baa8d;
+  --dc-c-aside-tip-accent: #5f704f;
+  --dc-c-aside-caution-bg: rgb(250 236 228 / 0.76);
+  --dc-c-aside-caution-border: #d49a7e;
+  --dc-c-aside-caution-accent: #9c543d;
+  --dc-c-aside-danger-bg: rgb(246 232 228 / 0.76);
+  --dc-c-aside-danger-border: #c99587;
+  --dc-c-aside-danger-accent: #8f5045;
 
   --sl-font: var(--dc-font-ui);
   --sl-font-mono: var(--dc-font-mono);
@@ -75,6 +87,15 @@
   --sl-color-orange-low: var(--dc-c-orange-soft);
   --sl-color-orange: var(--dc-c-orange);
   --sl-color-orange-high: var(--dc-c-orange-strong);
+  --sl-color-blue-low: var(--dc-c-aside-note-bg);
+  --sl-color-blue: var(--dc-c-aside-note-border);
+  --sl-color-blue-high: var(--dc-c-aside-note-accent);
+  --sl-color-purple-low: var(--dc-c-aside-tip-bg);
+  --sl-color-purple: var(--dc-c-aside-tip-border);
+  --sl-color-purple-high: var(--dc-c-aside-tip-accent);
+  --sl-color-red-low: var(--dc-c-aside-danger-bg);
+  --sl-color-red: var(--dc-c-aside-danger-border);
+  --sl-color-red-high: var(--dc-c-aside-danger-accent);
 
   --sl-shadow-sm: 0 1px 3px rgb(20 20 19 / 0.06);
   --sl-shadow-md: 0 12px 32px rgb(20 20 19 / 0.11);
@@ -111,6 +132,18 @@
   --dc-c-sidebar-right: rgb(20 20 19 / 0.64);
   --dc-c-blockquote-bg: rgb(225 138 104 / 0.1);
   --dc-c-card-bg: rgb(29 28 26 / 0.92);
+  --dc-c-aside-note-bg: rgb(45 70 68 / 0.46);
+  --dc-c-aside-note-border: #6f9691;
+  --dc-c-aside-note-accent: #acd3ce;
+  --dc-c-aside-tip-bg: rgb(54 67 50 / 0.42);
+  --dc-c-aside-tip-border: #8fa07a;
+  --dc-c-aside-tip-accent: #c2d2ad;
+  --dc-c-aside-caution-bg: rgb(82 56 43 / 0.42);
+  --dc-c-aside-caution-border: #ba8067;
+  --dc-c-aside-caution-accent: #efb59c;
+  --dc-c-aside-danger-bg: rgb(76 48 44 / 0.42);
+  --dc-c-aside-danger-border: #b17b72;
+  --dc-c-aside-danger-accent: #e8aaa1;
 
   --sl-color-gray-2: var(--dc-c-body);
   --sl-color-gray-3: #a69d91;
@@ -860,7 +893,46 @@ textarea,
 }
 
 .sl-markdown-content .starlight-aside {
-  padding: 0.8rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--sl-color-asides-border), transparent 45%);
+  border-inline-start: 0.25rem solid var(--sl-color-asides-border);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  color: var(--sl-color-text);
+  box-shadow: var(--sl-shadow-sm);
+}
+
+.sl-markdown-content .starlight-aside--note {
+  --sl-color-asides-text-accent: var(--dc-c-aside-note-accent);
+  --sl-color-asides-border: var(--dc-c-aside-note-border);
+
+  background-color: var(--dc-c-aside-note-bg);
+}
+
+.sl-markdown-content .starlight-aside--tip {
+  --sl-color-asides-text-accent: var(--dc-c-aside-tip-accent);
+  --sl-color-asides-border: var(--dc-c-aside-tip-border);
+
+  background-color: var(--dc-c-aside-tip-bg);
+}
+
+.sl-markdown-content .starlight-aside--caution {
+  --sl-color-asides-text-accent: var(--dc-c-aside-caution-accent);
+  --sl-color-asides-border: var(--dc-c-aside-caution-border);
+
+  background-color: var(--dc-c-aside-caution-bg);
+}
+
+.sl-markdown-content .starlight-aside--danger {
+  --sl-color-asides-text-accent: var(--dc-c-aside-danger-accent);
+  --sl-color-asides-border: var(--dc-c-aside-danger-border);
+
+  background-color: var(--dc-c-aside-danger-bg);
+}
+
+.sl-markdown-content .starlight-aside__title {
+  color: var(--sl-color-asides-text-accent);
+  font-family: var(--dc-font-ui);
+  font-weight: 700;
 }
 
 .sl-markdown-content .starlight-aside p {

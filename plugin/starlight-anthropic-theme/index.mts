@@ -8,7 +8,7 @@ export default function starlightAnthropicTheme(): StarlightPlugin {
     hooks: {
       "config:setup"({ config, updateConfig }: StarlightConfigSetupOptions) {
         updateConfig({
-          customCss: [...(config.customCss ?? []), "/src/custom.css"],
+          customCss: [...(config.customCss ?? []), "/plugin/starlight-anthropic-theme/theme.css"],
           components: {
             ...(config.components ?? {}),
             PageTitle: "./src/components/PageTitle.astro",
