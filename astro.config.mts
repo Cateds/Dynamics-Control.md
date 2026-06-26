@@ -6,6 +6,7 @@ import starlightRelativeDocLinks, {
 } from "./plugin/starlight-relative-doc-links/index.mts";
 import starlightAnthropicTheme from "./plugin/starlight-anthropic-theme/index.mts";
 import { starlightKatex } from "starlight-katex";
+import { courseSections } from "./course.config";
 
 const docsGenerateId = createStarlightDocsGenerateId();
 
@@ -38,24 +39,10 @@ export default defineConfig({
           href: "https://github.com/cateds/dynamics-control.md/releases",
         },
       ],
-      sidebar: [
-        {
-          label: "Preface",
-          items: [{ autogenerate: { directory: "preface" } }],
-        },
-        {
-          label: "Part.1",
-          items: [{ autogenerate: { directory: "part.1" } }],
-        },
-        {
-          label: "Part.2",
-          items: [{ autogenerate: { directory: "part.2" } }],
-        },
-        {
-          label: "Tutorials",
-          items: [{ autogenerate: { directory: "tutorials" } }],
-        },
-      ],
+      sidebar: courseSections.map(({ label, directory }) => ({
+        label,
+        items: [{ autogenerate: { directory } }],
+      })),
       lastUpdated: true,
       plugins: [
         starlightRelativeDocLinks({ generateId: docsGenerateId }),

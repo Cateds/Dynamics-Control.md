@@ -1,5 +1,7 @@
-import { PDF_STYLES } from "./pdf-styles";
 import { escapeHtml } from "./escape-html";
+import pdfStyles from "./pdf-styles.css" with { type: "text" };
+
+const PDF_STYLES = pdfStyles;
 
 interface BuildHtmlOptions {
   siteTitle: string;
@@ -13,7 +15,7 @@ interface BuildHtmlOptions {
 
 interface PartDef {
   label: string;
-  startIndex: number;
+  folder: string;
 }
 
 interface ArticleData {
@@ -27,13 +29,17 @@ interface ArticleData {
 export function buildHtml(articles: ArticleData[], opts: BuildHtmlOptions): string {
   let tocHtml = "";
   for (const part of opts.parts) {
-    const end =
-      opts.parts.find((p) => p.startIndex > part.startIndex)?.startIndex ?? articles.length;
+    const partArticles = articles
+      .map((article, index) => ({ article, index }))
+      .filter(({ article }) => article.folder === part.folder);
+
+    if (partArticles.length === 0) continue;
+
     tocHtml += `<div class="toc-group">
     <h3>${escapeHtml(part.label)}</h3>
     <ul>`;
-    for (let i = part.startIndex; i < end; i++) {
-      tocHtml += `<li><a href="#page-${i}">${escapeHtml(articles[i].title || "(无标题)")}</a></li>`;
+    for (const { article, index } of partArticles) {
+      tocHtml += `<li><a href="#page-${index}">${escapeHtml(article.title || "(无标题)")}</a></li>`;
     }
     tocHtml += `</ul>
   </div>`;
@@ -42,10 +48,12 @@ export function buildHtml(articles: ArticleData[], opts: BuildHtmlOptions): stri
   let articlesHtml = "";
   for (let i = 0; i < articles.length; i++) {
     const a = articles[i];
-    const part = opts.parts.find((p) => i === p.startIndex);
+    const part = opts.parts.find((p) => p.folder === a.folder);
+    const previous = articles[i - 1];
+    const partLabel = part && previous?.folder !== a.folder ? part.label : undefined;
     articlesHtml += `
   <div class="article" id="page-${i}">
-    ${part ? `<div class="part-label">${escapeHtml(part.label)}</div>` : ""}
+    ${partLabel ? `<div class="part-label">${escapeHtml(partLabel)}</div>` : ""}
     <h1 class="a-title">${escapeHtml(a.title || "")}</h1>
     <div class="a-content">
       ${a.content}
@@ -74,6 +82,7 @@ export function buildHtml(articles: ArticleData[], opts: BuildHtmlOptions): stri
     <p class="sub">课程笔记${opts.tag ? ` · ${escapeHtml(opts.tag)}` : ""}</p>
     <p class="author">by ${escapeHtml(opts.authorName)}</p>
     <p class="date">${date}</p>
+    <p class="license">CC BY-SA 4.0 · 允许分享与改编，需署名并以相同方式共享。</p>
     <div class="links">
       <a href="${opts.siteUrl}">
         <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>

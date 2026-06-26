@@ -6,6 +6,7 @@ import { execSync } from "node:child_process";
 import serveHandler from "serve-handler";
 import { buildHtml, type ArticleData, type PartDef } from "./build-html";
 import { rewriteInternalLinks } from "./rewrite-links";
+import { courseDirectoryToRouteSegment, courseSections } from "../course.config";
 
 const CONCURRENCY = 4;
 const PUBLIC_DIR = resolve(process.cwd(), "dist");
@@ -17,18 +18,47 @@ const GITHUB_URL = "https://github.com/Cateds/Dynamics-Control.md";
 const AUTHOR_URL = "https://cateds.github.io/";
 const AUTHOR_NAME = "Cateds";
 
-const PARTS: PartDef[] = [
-  { label: "Part.1", startIndex: 0 },
-  { label: "Part.2", startIndex: 6 },
-];
+const PDF_PARTS: PartDef[] = courseSections
+  .filter((section) => section.showInPdf)
+  .map(({ label, directory }) => ({
+    label,
+    folder: courseDirectoryToRouteSegment(directory),
+  }));
+const PDF_FOLDER_ORDER = new Map(PDF_PARTS.map((part, index) => [part.folder, index]));
 
 const SKIP_BUILD = process.argv.includes("--skip-build");
 const CI = process.env.CI === "true";
-const TAG =
-  process.argv.find((a, i) => a === "--tag" && process.argv[i + 1])?.replace("--tag ", "") ||
-  process.env.RELEASE_TAG ||
-  "";
+const TAG = resolveReleaseTag();
 const OUTPUT_FILE = join(OUTPUT_DIR, "DynamicsControl.pdf");
+
+function readArgValue(name: string) {
+  const prefix = `${name}=`;
+
+  for (let i = 0; i < process.argv.length; i++) {
+    const arg = process.argv[i];
+    if (arg === name) return process.argv[i + 1]?.trim();
+    if (arg.startsWith(prefix)) return arg.slice(prefix.length).trim();
+  }
+}
+
+function readLatestGitTag() {
+  try {
+    return execSync("git tag --sort=-version:refname", {
+      cwd: process.cwd(),
+      encoding: "utf-8",
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .split(/\r?\n/)
+      .map((tag) => tag.trim())
+      .find(Boolean);
+  } catch {
+    return undefined;
+  }
+}
+
+function resolveReleaseTag() {
+  return readArgValue("--tag") || process.env.RELEASE_TAG?.trim() || readLatestGitTag() || "v0.0.0";
+}
 
 async function main() {
   if (!SKIP_BUILD) {
@@ -37,6 +67,7 @@ async function main() {
   } else {
     console.log("[1/5] Build skipped (dist dir already exists)");
   }
+  console.log(`   Release tag: ${TAG}`);
 
   if (!readFileSync(SITEMAP_PATH, "utf-8").trim()) {
     console.error("Sitemap is empty. Build may have failed.");
@@ -55,10 +86,14 @@ async function main() {
 
   const urls = allUrls.filter((url) => {
     const pathname = new URL(url).pathname;
+    const pathWithoutPrefix = pathname.replace(/^\/Dynamics-Control\.md\/?/, "");
+    const folder = pathWithoutPrefix.split("/")[0];
+
     return (
       pathname !== "/Dynamics-Control.md/" &&
       pathname !== "/Dynamics-Control.md/index.html" &&
-      pathname !== "/Dynamics-Control.md"
+      pathname !== "/Dynamics-Control.md" &&
+      PDF_FOLDER_ORDER.has(folder)
     );
   });
 
@@ -193,7 +228,14 @@ async function main() {
     const workers = Array.from({ length: CONCURRENCY }, (_, i) => scrapeWorker(i + 1));
     await Promise.all(workers);
 
-    articles.sort((a, b) => a.sortKey.localeCompare(b.sortKey, undefined, { numeric: true }));
+    articles.sort((a, b) => {
+      const sectionOrderA = PDF_FOLDER_ORDER.get(a.folder) ?? Number.MAX_SAFE_INTEGER;
+      const sectionOrderB = PDF_FOLDER_ORDER.get(b.folder) ?? Number.MAX_SAFE_INTEGER;
+
+      if (sectionOrderA !== sectionOrderB) return sectionOrderA - sectionOrderB;
+
+      return a.sortKey.localeCompare(b.sortKey, undefined, { numeric: true });
+    });
     console.log(`\n   Extracted ${articles.length}/${urls.length} articles.`);
 
     rewriteInternalLinks(articles, pathPrefix);
@@ -206,7 +248,7 @@ async function main() {
       githubUrl: GITHUB_URL,
       authorUrl: AUTHOR_URL,
       authorName: AUTHOR_NAME,
-      parts: PARTS,
+      parts: PDF_PARTS,
     });
     mkdirSync(OUTPUT_DIR, { recursive: true });
 
@@ -238,10 +280,10 @@ async function main() {
     await pdfPage.pdf({
       path: OUTPUT_FILE,
       format: "A4",
-      printBackground: true,
+      printBackground: false,
       displayHeaderFooter: true,
       headerTemplate: "<div></div>",
-      footerTemplate: `<div style="font-size:12px;text-align:center;width:100%;color:#8a969e;font-family:Inter,sans-serif;">
+      footerTemplate: `<div style="font-size:11px;text-align:center;width:100%;color:#b0aea5;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
         - <span class="pageNumber"></span> -
       </div>`,
       margin: {

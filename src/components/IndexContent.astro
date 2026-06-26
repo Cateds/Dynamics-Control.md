@@ -10,8 +10,15 @@ interface Article {
   };
 }
 
-interface Grouped {
-  [key: string]: Article[];
+interface Section {
+  label: string;
+  directory: string;
+  indexLabel?: string;
+}
+
+interface Group {
+  section: Section;
+  articles: Article[];
 }
 
 interface CourseCard {
@@ -22,7 +29,7 @@ interface CourseCard {
   imageSrc?: string;
 }
 
-const { grouped } = Astro.props as { grouped: Grouped };
+const { groups } = Astro.props as { groups: Group[] };
 
 const markdownFiles = import.meta.glob<string>("../content/docs/**/*.md", {
   eager: true,
@@ -73,17 +80,12 @@ function resolveImage(docKey: string, imagePath?: string) {
   return image?.src;
 }
 
-function comparePart([a]: [string, Article[]], [b]: [string, Article[]]) {
-  return Number(a.match(/\d+/)?.[0] ?? 0) - Number(b.match(/\d+/)?.[0] ?? 0);
-}
-
 function compareLecture(a: Article, b: Article) {
   return Number(a.id.match(/lec(\d+)/)?.[1] ?? 0) - Number(b.id.match(/lec(\d+)/)?.[1] ?? 0);
 }
 
-function partTitle(part: string) {
-  const number = part.match(/\d+/)?.[0];
-  return number ? `Part ${number}` : part;
+function sectionTitle(section: Section) {
+  return section.indexLabel ?? section.label;
 }
 
 function lectureLabel(article: Article) {
@@ -91,12 +93,14 @@ function lectureLabel(article: Article) {
   return lecture ? `Lecture ${lecture}` : "Lecture";
 }
 
-function sourcePathFromId(id: string) {
-  return id.replace(/^part(\d+)\//, "part.$1/");
+function sourcePathFromArticle(section: Section, article: Article) {
+  const segments = article.id.split("/");
+  segments[0] = section.directory;
+  return segments.join("/");
 }
 
-function toCard(article: Article): CourseCard {
-  const docKey = `../content/docs/${sourcePathFromId(article.id)}.md`;
+function toCard(section: Section, article: Article): CourseCard {
+  const docKey = `../content/docs/${sourcePathFromArticle(section, article)}.md`;
   const source = markdownFiles[docKey] ?? "";
   const cardBg = article.data["card-bg"] ?? readFrontmatterValue(source, "card-bg");
   const imagePath = cardBg ?? readFirstImage(source);
@@ -113,34 +117,32 @@ function toCard(article: Article): CourseCard {
 
 <div class="course-index">
   {
-    Object.entries(grouped)
-      .sort(comparePart)
-      .map(([part, articles]) => (
-        <section class="course-part" aria-labelledby={`${part}-title`}>
-          <h2 id={`${part}-title`}>{partTitle(part)}</h2>
-          <div class="course-card-grid">
-            {articles.sort(compareLecture).map((article) => {
-              const card = toCard(article);
-              return (
-                <a class="course-card" href={card.href}>
-                  <div class="course-card__media" aria-hidden="true">
-                    {card.imageSrc ? (
-                      <img src={card.imageSrc} alt="" loading="lazy" decoding="async" />
-                    ) : (
-                      <span class="course-card__fallback" />
-                    )}
-                  </div>
-                  <div class="course-card__body">
-                    <p class="course-card__eyebrow">{card.eyebrow}</p>
-                    <h3>{card.title}</h3>
-                    <p class="course-card__description">{card.description}</p>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </section>
-      ))
+    groups.map(({ section, articles }) => (
+      <section class="course-part" aria-labelledby={`${section.directory}-title`}>
+        <h2 id={`${section.directory}-title`}>{sectionTitle(section)}</h2>
+        <div class="course-card-grid">
+          {articles.sort(compareLecture).map((article) => {
+            const card = toCard(section, article);
+            return (
+              <a class="course-card" href={card.href}>
+                <div class="course-card__media" aria-hidden="true">
+                  {card.imageSrc ? (
+                    <img src={card.imageSrc} alt="" loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="course-card__fallback" />
+                  )}
+                </div>
+                <div class="course-card__body">
+                  <p class="course-card__eyebrow">{card.eyebrow}</p>
+                  <h3>{card.title}</h3>
+                  <p class="course-card__description">{card.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    ))
   }
 </div>
 

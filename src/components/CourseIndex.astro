@@ -1,21 +1,25 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import IndexContent from "./IndexContent.astro";
+import { courseDirectoryToRouteSegment, courseSections } from "../../course.config";
 
 const docs = await getCollection("docs");
-const grouped = docs
-  .filter((doc) => /^part\.?\d+\//.test(doc.id))
-  .reduce<Record<string, CollectionEntry<"docs">[]>>((acc, doc) => {
-    const part = doc.id.split("/")[0];
-    if (!acc[part]) acc[part] = [];
-    acc[part].push(doc);
-    return acc;
-  }, {});
+const groups = courseSections
+  .filter((section) => section.showInIndex)
+  .map((section) => {
+    const routeSegment = courseDirectoryToRouteSegment(section.directory);
+    const articles = docs.filter((doc) => {
+      const sectionSegment = doc.id.split("/")[0];
+      return sectionSegment === routeSegment || sectionSegment === section.directory;
+    });
+
+    return { section, articles };
+  })
+  .filter(({ articles }) => articles.length > 0);
 ---
 
 <div class="course-index-shell">
-  <IndexContent grouped={grouped} />
+  <IndexContent groups={groups} />
 </div>
 
 <style>
