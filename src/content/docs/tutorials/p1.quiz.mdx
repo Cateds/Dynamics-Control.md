@@ -1,0 +1,55 @@
+---
+title: Part.1 Quiz
+description: Part.1 课堂选择题汇总
+---
+
+import QuizCard from "../../../components/QuizCard.astro";
+
+> 本页汇总课堂 quiz 选择题。参考答案与解析基于课堂 quiz answer、课件与本站笔记整理；若与课堂公布答案冲突，以课堂答案为准。标注“需人工复核”的题目表示题干或选项存在可疑之处。
+
+## Lecture 1
+
+<QuizCard
+  number="L1.Q1"
+  prompt="What is a system?"
+  answer="E"
+  options={[
+    { id: "A", text: "combination of components acting together to perform a specific objective" },
+    { id: "B", text: "they are sets of connected objects or things" },
+    { id: "C", text: "behaviors of these systems are shaped by their environments" },
+    { id: "D", text: "1 and 3" },
+    { id: "E", text: "All of the above" },
+  ]}
+  answerNote="系统不是孤立零件，而是一组相互连接、共同完成目标，并受环境影响的对象。"
+  links={[{ href: "../part.1/lec1.md#什么是动态系统-dynamic-system", label: "动态系统" }]}
+/>
+
+<QuizCard
+  number="L1.Q2"
+  prompt="Select the correct statement."
+  answer="B"
+  options={[
+    { id: "A", text: "dynamic systems can only be found in mechanical field" },
+    { id: "B", text: "we can use physical laws to understand the performance of dynamic systems" },
+    { id: "C", text: "the output of a system is only dependent on the input" },
+    { id: "D", text: "All of the above" },
+    { id: "E", text: "None of the above" },
+  ]}
+  answerNote="动态系统可以来自机械、电气、热、流体等不同领域；输出通常还受系统状态、参数和环境影响。"
+  links={[{ href: "../part.1/lec1.md#描述动态系统", label: "描述动态系统" }]}
+/>
+
+<QuizCard
+  number="L1.Q5"
+  prompt="Select the correct statement."
+  answer="E"
+  options={[
+    { id: "A", text: "peak time is the time required for the response to reach steady state value for the first time" },
+    { id: "B", text: "settling time is the time required for the response to reach its steady state value" },
+    { id: "C", text: "rise time is the time taken to maximum overshoot" },
+    { id: "D", text: "All of the above" },
+    { id: "E", text: "None of the above" },
+  ]}
+  answerNote="Peak time 对应第一次达到峰值，settling time 要求进入并保持在允许误差带内，rise time 描述从低百分比升到高百分比的时间；三个选项都不准确。"
+  links={[{ href: "../part.1/lec1.md#响应属性", label: "响应属性" }]}
+/>

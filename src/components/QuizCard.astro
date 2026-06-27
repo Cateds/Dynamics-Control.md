@@ -1,0 +1,254 @@
+---
+interface QuizOption {
+  id: string;
+  text: string;
+}
+
+interface KnowledgeLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  id?: string;
+  number?: string;
+  prompt: string;
+  answer: string;
+  options: QuizOption[];
+  answerNote?: string;
+  links?: KnowledgeLink[];
+  review?: boolean;
+}
+
+const { id, number, prompt, answer, options, answerNote, links = [], review = false } = Astro.props;
+const normalizedAnswer = answer.trim().toUpperCase();
+---
+
+<div class="question-card quiz-card" data-answer={normalizedAnswer} id={id}>
+  <p class="question-title">
+    {number && <strong>{number}</strong>}
+    <span set:html={prompt} />
+  </p>
+
+  <div class="quiz-options">
+    {
+      options.map((option) => (
+        <button class="quiz-option" data-option={option.id.toUpperCase()} type="button">
+          <span class="quiz-option-letter">{option.id.toUpperCase()}</span>
+          <span set:html={option.text} />
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="quiz-explanation" aria-live="polite">
+    <p>
+      <strong class="quiz-answer">参考答案：{normalizedAnswer}{review ? "（需人工复核）" : ""}</strong>
+    </p>
+    {answerNote && <p set:html={answerNote} />}
+    <slot />
+    {
+      links.length > 0 && (
+        <p class="quiz-links">
+          <span>相关知识点：</span>
+          {links.map((link, index) => (
+            <>
+              {index > 0 && <span aria-hidden="true"> / </span>}
+              <a href={link.href}>{link.label}</a>
+            </>
+          ))}
+        </p>
+      )
+    }
+  </div>
+</div>
+
+<script>
+  function bindQuizCards() {
+    document.querySelectorAll<HTMLElement>(".quiz-card:not([data-quiz-bound])").forEach((card) => {
+      card.dataset.quizBound = "true";
+      const answer = card.dataset.answer;
+      const options = Array.from(card.querySelectorAll<HTMLButtonElement>(".quiz-option"));
+
+      options.forEach((option) => {
+        option.addEventListener("click", () => {
+          if (!answer) return;
+
+          card.classList.add("answered");
+          options.forEach((candidate) => {
+            const isCorrect = candidate.dataset.option === answer;
+            const isChosen = candidate === option;
+
+            candidate.disabled = true;
+            candidate.classList.toggle("correct", isCorrect);
+            candidate.classList.toggle("incorrect", isChosen && !isCorrect);
+            candidate.classList.toggle("muted", !isCorrect && !isChosen);
+          });
+        });
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindQuizCards, { once: true });
+  } else {
+    bindQuizCards();
+  }
+
+  document.addEventListener("astro:page-load", bindQuizCards);
+</script>
+
+<style is:global>
+  .sl-markdown-content .question-card {
+    margin: 1.1rem 0 1.35rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--dc-c-light-gray);
+    border-left: 4px solid var(--dc-c-orange);
+    border-radius: 14px;
+    background: var(--dc-c-card-bg);
+    box-shadow: var(--sl-shadow-sm);
+  }
+
+  .sl-markdown-content .question-card .question-title {
+    margin: 0 0 0.7rem;
+    color: var(--dc-c-dark);
+    font-family: var(--dc-font-ui);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .sl-markdown-content .question-card .question-title strong {
+    margin-right: 0.35rem;
+    color: var(--dc-c-orange-strong);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-options {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 0.55rem;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option {
+    display: grid;
+    grid-template-columns: 1.55rem 1fr;
+    gap: 0.52rem;
+    align-items: start;
+    width: 100%;
+    margin: 0;
+    padding: 0.34rem 0.56rem;
+    border: 1px solid color-mix(in srgb, var(--dc-c-light-gray) 76%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--dc-c-bg-elv) 94%, var(--dc-c-bg-alt));
+    color: var(--dc-c-body);
+    font: inherit;
+    font-size: 0.94rem;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease,
+      color 0.18s ease,
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option:hover:not(:disabled) {
+    border-color: var(--dc-c-orange);
+    background: color-mix(in srgb, var(--dc-c-bg-elv) 88%, var(--dc-c-orange-soft));
+    color: var(--dc-c-dark);
+    transform: translateY(-1px);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option:focus-visible {
+    outline: 3px solid var(--dc-c-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option:disabled {
+    cursor: default;
+    transform: none;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option-letter {
+    display: inline-grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border: 1px solid var(--dc-c-orange);
+    border-radius: 999px;
+    color: var(--dc-c-orange-strong);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option.correct {
+    border-color: var(--dc-c-aside-tip-border);
+    background: color-mix(in srgb, var(--dc-c-aside-tip-bg) 54%, var(--dc-c-bg-elv));
+    color: var(--dc-c-dark);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option.correct .quiz-option-letter {
+    border-color: var(--dc-c-aside-tip-accent);
+    background: var(--dc-c-aside-tip-accent);
+    color: var(--dc-c-light);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option.incorrect {
+    border-color: var(--dc-c-aside-danger-border);
+    background: color-mix(in srgb, var(--dc-c-aside-danger-bg) 56%, var(--dc-c-bg-elv));
+    color: var(--dc-c-dark);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option.incorrect .quiz-option-letter {
+    border-color: var(--dc-c-aside-danger-accent);
+    background: var(--dc-c-aside-danger-accent);
+    color: var(--dc-c-light);
+  }
+
+  .sl-markdown-content .quiz-card .quiz-option.muted {
+    opacity: 0.58;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-explanation {
+    max-height: 0;
+    margin-top: 0;
+    padding: 0 0.95rem;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    opacity: 0;
+    color: var(--dc-c-body);
+    line-height: 1.65;
+    transition:
+      max-height 0.26s ease,
+      margin-top 0.26s ease,
+      padding 0.26s ease,
+      border-color 0.26s ease,
+      background-color 0.26s ease,
+      opacity 0.26s ease;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-explanation p {
+    margin: 0.35rem 0;
+  }
+
+  .sl-markdown-content .quiz-card.answered .quiz-explanation {
+    max-height: 24rem;
+    margin-top: 1rem;
+    padding: 0.85rem 0.95rem;
+    border-color: var(--dc-c-light-gray);
+    background: color-mix(in srgb, var(--dc-c-bg-elv) 96%, var(--dc-c-bg-alt));
+    opacity: 1;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-answer {
+    color: var(--dc-c-aside-tip-accent);
+    font-weight: 700;
+  }
+
+  .sl-markdown-content .quiz-card .quiz-links {
+    font-size: 0.92rem;
+  }
+</style>

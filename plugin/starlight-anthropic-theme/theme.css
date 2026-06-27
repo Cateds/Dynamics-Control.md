@@ -985,7 +985,7 @@ textarea,
   margin-inline: 1rem;
 }
 
-.sl-markdown-content details:not(:where(.not-content *)) > :last-child {
+.sl-markdown-content details[open]:not(:where(.not-content *)) > :last-child {
   margin-bottom: 1rem;
 }
 
