@@ -78,8 +78,27 @@ export default defineConfig({
       autoTheme: true,
       enableLog: false,
       mermaidConfig: {
+        theme: "base",
+        themeVariables: {
+          background: "transparent",
+          fontFamily:
+            "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif",
+          primaryColor: "#f8f1ec",
+          primaryTextColor: "#2f2a24",
+          primaryBorderColor: "#d49a7e",
+          lineColor: "#8a6b5e",
+          secondaryColor: "#fffefd",
+          tertiaryColor: "#fbfaf7",
+          clusterBkg: "#fbfaf7",
+          clusterBorder: "#ecebe7",
+          edgeLabelBackground: "#fffefd",
+          mainBkg: "#f8f1ec",
+          nodeBorder: "#d49a7e",
+          textColor: "#2f2a24",
+        },
         flowchart: {
           curve: "basis",
+          htmlLabels: true,
         },
       },
     }),

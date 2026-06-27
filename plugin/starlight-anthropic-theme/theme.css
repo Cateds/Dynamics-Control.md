@@ -892,6 +892,94 @@ textarea,
   margin-top: 0.35rem;
 }
 
+.sl-markdown-content :where(.mermaid, .astro-mermaid) {
+  margin: 1.5rem 0;
+  border: 1px solid rgb(217 119 87 / 0.16);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 18% 0%, rgb(217 119 87 / 0.08), transparent 36%),
+    linear-gradient(180deg, rgb(251 250 247 / 0.94), rgb(255 254 253 / 0.94));
+  padding: 1rem;
+  overflow-x: auto;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.72);
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node rect,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node circle,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node ellipse,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node polygon,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node path {
+  stroke: #c98467 !important;
+  fill: #fbf4ef !important;
+  stroke-width: 1.35px !important;
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .nodeLabel,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .label,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg text {
+  color: #2f2a24 !important;
+  fill: #2f2a24 !important;
+  font-family: var(--dc-font-ui) !important;
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .flowchart-link,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .edge-thickness-normal {
+  stroke: #7f685c !important;
+  stroke-width: 1.35px !important;
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg marker path {
+  stroke: #7f685c !important;
+  fill: #7f685c !important;
+}
+
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .edgeLabel,
+.sl-markdown-content :where(.mermaid, .astro-mermaid) svg .edgeLabel p {
+  background-color: rgb(255 254 253 / 0.86) !important;
+  color: #5f5149 !important;
+}
+
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) {
+  border-color: rgb(225 138 104 / 0.18);
+  background:
+    radial-gradient(circle at 18% 0%, rgb(225 138 104 / 0.12), transparent 38%),
+    linear-gradient(180deg, rgb(28 27 25 / 0.94), rgb(20 20 19 / 0.94));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node rect,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node circle,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node ellipse,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node polygon,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .node path {
+  stroke: #d7977a !important;
+  fill: #2a2521 !important;
+}
+
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .nodeLabel,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .label,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg text {
+  color: #f3eee7 !important;
+  fill: #f3eee7 !important;
+}
+
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .flowchart-link,
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg .edge-thickness-normal {
+  stroke: #bfa89b !important;
+}
+
+:root[data-theme="dark"] .sl-markdown-content :where(.mermaid, .astro-mermaid) svg marker path {
+  stroke: #bfa89b !important;
+  fill: #bfa89b !important;
+}
+
 .sl-markdown-content .starlight-aside {
   border: 1px solid color-mix(in srgb, var(--sl-color-asides-border), transparent 45%);
   border-inline-start: 0.25rem solid var(--sl-color-asides-border);
