@@ -1,8 +1,9 @@
-name: Build & Attach PDF to Release
+name: Build & Release PDF on Tag
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - '*'
 
 permissions:
   contents: write
@@ -14,38 +15,55 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Get release name
+        id: release_info
+        run: echo "name=$(date +'%Y%m%d')" >> "$GITHUB_OUTPUT"
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       - name: Install Dependencies
         run: bun install
-      - name: Install Chromium deps
+      - name: Install system deps & fonts
         run: |
           sudo apt-get update
           sudo apt-get install -y libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 \
             libcups2t64 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 \
-            libgbm1 libpango-1.0-0 libcairo2 libasound2t64 libxshmfence1
+            libgbm1 libpango-1.0-0 libcairo2 libasound2t64 libxshmfence1 \
+            fonts-noto-cjk fonts-noto-cjk-extra fonts-cascadia-code
+          mkdir -p ~/.fonts
+          wget -q "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip" -O /tmp/Inter-4.1.zip
+          unzip -qo /tmp/Inter-4.1.zip -d /tmp/Inter-4.1
+          find /tmp/Inter-4.1 -name "Inter*.ttf" ! -path "*/InterDisplay/*" -exec cp {} ~/.fonts/ \;
+          fc-cache -f ~/.fonts
       - name: Build Astro site
         run: bun run build
       - name: Generate PDF
         run: bun run export-pdf --skip-build
         env:
           CI: true
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_TAG: ${{ github.ref_name }}
       - name: Generate changelog
         id: changelog
         run: |
-          PREV_TAG=$(git tag --sort=-version:refname | head -2 | tail -1)
+          CURRENT_SHA=$(git rev-list -n 1 "${{ github.ref_name }}")
+          PREV_TAG=$(git describe --tags --abbrev=0 "${CURRENT_SHA}^" 2>/dev/null || true)
           if [ -z "$PREV_TAG" ]; then
-            LOG=$(git log --pretty=format:"- %s" --no-merges)
+            LOG=$(git log --pretty=format:"- %s" --no-merges "$CURRENT_SHA")
           else
-            LOG=$(git log --pretty=format:"- %s" --no-merges "$PREV_TAG"..HEAD)
+            LOG=$(git log --pretty=format:"- %s" --no-merges "$PREV_TAG..$CURRENT_SHA")
+          fi
+          if [ -z "$LOG" ]; then
+            LOG="- No commit changes found."
           fi
           echo "log<<EOF" >> "$GITHUB_OUTPUT"
           echo "$LOG" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
-      - name: Upload PDF to Release
+      - name: Create Release & Upload Assets
         uses: softprops/action-gh-release@v2
         with:
+          name: ${{ steps.release_info.outputs.name }}
+          tag_name: ${{ github.ref_name }}
           body: ${{ steps.changelog.outputs.log }}
-          files: pdf-output/*.pdf
+          files: |
+            pdf-output/*.pdf
+            dist/llms*.txt
