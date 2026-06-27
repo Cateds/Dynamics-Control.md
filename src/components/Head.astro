@@ -11,4 +11,30 @@ import VtbotStarlight from "astro-vtbot/components/starlight/Base.astro";
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Noto+Serif+SC:wght@400;600;700&amp;display=swap"
   />
+  <style is:global>
+    mjx-container {
+      display: inline-block;
+      vertical-align: middle;
+      overflow-x: auto;
+    }
+    mjx-container:not([display="true"]) {
+      margin: 0 0.06em;
+    }
+    mjx-container[display="true"] {
+      display: block;
+      text-align: center;
+      margin: 0.82em 0;
+    }
+    mjx-container[display="true"] > svg {
+      max-width: 100%;
+      display: inline-block;
+      margin: auto;
+    }
+    mjx-container > svg {
+      display: inline-block;
+    }
+    mjx-assistive-mml {
+      display: none !important;
+    }
+  </style>
 </VtbotStarlight>

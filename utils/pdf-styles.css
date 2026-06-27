@@ -501,11 +501,6 @@ body {
   word-break: break-word;
 }
 
-.a-content td .katex,
-.a-content th .katex {
-  font-size: 0.86em;
-}
-
 .a-content th {
   color: var(--dc-c-muted);
   font-weight: 700;
@@ -748,15 +743,20 @@ body {
   margin-bottom: 0.8em;
 }
 
-.katex-display {
+mjx-container[display="true"] {
+  display: block;
+  text-align: center;
   margin: 0.82em 0;
   overflow-x: auto;
   padding: 0.2em 0;
-  text-align: center;
 }
 
-.katex {
-  font-size: 1em;
+mjx-container[display="true"] > svg {
+  max-width: 100%;
+}
+
+mjx-container:not([display="true"]) svg {
+  vertical-align: middle;
 }
 
 .a-content img {

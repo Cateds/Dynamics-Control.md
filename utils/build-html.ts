@@ -71,10 +71,6 @@ export function buildHtml(articles: ArticleData[], opts: BuildHtmlOptions): stri
 <style>
   ${PDF_STYLES}
 </style>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
-/>
 </head>
 <body>
   <div class="cover">

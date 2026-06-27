@@ -9,7 +9,8 @@ import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
 } from "./plugin/starlight-relative-doc-links/index.mts";
 import starlightAnthropicTheme from "./plugin/starlight-anthropic-theme/index.mts";
-import { starlightKatex } from "starlight-katex";
+import remarkMath from "remark-math";
+import rehypeMathjax from "rehype-mathjax";
 import { courseSections } from "./course.config";
 import { buildLlmsFiles, isLlmsSourcePath, type LlmsFile } from "./utils/generate-llms";
 
@@ -133,9 +134,12 @@ export default defineConfig({
       lastUpdated: true,
       plugins: [
         starlightRelativeDocLinks({ generateId: docsGenerateId }),
-        starlightKatex(),
         starlightAnthropicTheme(),
       ],
     }),
   ],
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [[rehypeMathjax, { svg: true }]],
+  },
 });

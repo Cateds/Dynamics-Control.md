@@ -1348,8 +1348,8 @@ html[data-has-hero] .hero .tagline {
   }
 }
 
-/* KaTeX 公式横向滚动 */
-.katex-display {
+/* MathJax 公式横向滚动 */
+mjx-container[display="true"] {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.5em 0;
@@ -1358,7 +1358,7 @@ html[data-has-hero] .hero .tagline {
 
 /* 移动端优化 */
 @media (max-width: 768px) {
-  .katex-display {
+  mjx-container[display="true"] {
     max-width: 100%;
   }
 }
