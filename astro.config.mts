@@ -3,6 +3,7 @@ import path from "node:path";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { defineConfig } from "astro/config";
 import type { Plugin, ViteDevServer } from "vite";
+import mermaid from "astro-mermaid";
 import starlight from "@astrojs/starlight";
 import starlightRelativeDocLinks, {
   createStarlightDocsGenerateId,
@@ -73,6 +74,15 @@ export default defineConfig({
     plugins: [llmsDevPlugin()],
   },
   integrations: [
+    mermaid({
+      autoTheme: true,
+      enableLog: false,
+      mermaidConfig: {
+        flowchart: {
+          curve: "basis",
+        },
+      },
+    }),
     starlight({
       locales: { root: { lang: "zh", label: "中文" } },
       title: "Dynamics & Control",

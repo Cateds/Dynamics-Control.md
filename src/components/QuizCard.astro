@@ -14,14 +14,26 @@ interface Props {
   number?: string;
   prompt: string;
   answer: string;
+  answerLabel?: string;
   options: QuizOption[];
   answerNote?: string;
   links?: KnowledgeLink[];
   review?: boolean;
 }
 
-const { id, number, prompt, answer, options, answerNote, links = [], review = false } = Astro.props;
+const {
+  id,
+  number,
+  prompt,
+  answer,
+  answerLabel,
+  options,
+  answerNote,
+  links = [],
+  review = false,
+} = Astro.props;
 const normalizedAnswer = answer.trim().toUpperCase();
+const displayAnswer = answerLabel ?? normalizedAnswer;
 ---
 
 <div class="question-card quiz-card" data-answer={normalizedAnswer} id={id}>
@@ -43,7 +55,7 @@ const normalizedAnswer = answer.trim().toUpperCase();
 
   <div class="quiz-explanation" aria-live="polite">
     <p>
-      <strong class="quiz-answer">参考答案：{normalizedAnswer}{review ? "（需人工复核）" : ""}</strong>
+      <strong class="quiz-answer">参考答案：{displayAnswer}{review ? "（需人工复核）" : ""}</strong>
     </p>
     {answerNote && <p set:html={answerNote} />}
     <slot />

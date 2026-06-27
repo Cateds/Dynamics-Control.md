@@ -40,6 +40,36 @@ import QuizCard from "../../../components/QuizCard.astro";
 />
 
 <QuizCard
+  number="L1.Q3"
+  prompt="Select the correct statement."
+  answer="E"
+  options={[
+    { id: "A", text: "force applied to a damper is inversely proportional to the velocity of the piston" },
+    { id: "B", text: "dynamic systems can be modelled in mathematical terms" },
+    { id: "C", text: "model can be obtained by testing a prototype of a corresponding device" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "2 and 3" },
+  ]}
+  answerNote="动态系统可以用数学模型表示，也可以通过原型测试辨识；阻尼器力与速度成正比，不是反比。"
+  links={[{ href: "../part.1/lec1.md#描述动态系统", label: "系统建模" }]}
+/>
+
+<QuizCard
+  number="L1.Q4"
+  prompt="Select the correct statement."
+  answer="A"
+  options={[
+    { id: "A", text: "depending on the time constant, system reach to its steady state at different times" },
+    { id: "B", text: "natural frequency, which describes the speed of the input" },
+    { id: "C", text: "when system is overdamped, it shows both oscillatory and exponential behaviour" },
+    { id: "D", text: "2 and 3" },
+    { id: "E", text: "None of the above" },
+  ]}
+  answerNote="时间常数决定一阶系统接近稳态的快慢；自然频率是系统属性，过阻尼响应不振荡。"
+  links={[{ href: "../part.1/lec1.md#一阶系统-first-order-system", label: "一阶系统" }]}
+/>
+
+<QuizCard
   number="L1.Q5"
   prompt="Select the correct statement."
   answer="E"
@@ -52,4 +82,371 @@ import QuizCard from "../../../components/QuizCard.astro";
   ]}
   answerNote="Peak time 对应第一次达到峰值，settling time 要求进入并保持在允许误差带内，rise time 描述从低百分比升到高百分比的时间；三个选项都不准确。"
   links={[{ href: "../part.1/lec1.md#响应属性", label: "响应属性" }]}
+/>
+
+## Lecture 2
+
+<QuizCard
+  number="L2.Q1"
+  prompt="Select the correct statement."
+  answer="D"
+  options={[
+    { id: "A", text: "control system consists subsystems and processes" },
+    { id: "B", text: "if the output is controlled then it is a control system" },
+    { id: "C", text: "control systems can be open loop or closed loop" },
+    { id: "D", text: "all of the above" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="控制系统由子系统和过程组成，用于控制输出；按是否使用反馈，可分为开环和闭环。"
+  links={[{ href: "../part.1/lec2.md#控制系统简介", label: "控制系统简介" }]}
+/>
+
+<QuizCard
+  number="L2.Q2"
+  prompt="Select the wrong statement."
+  answer="A"
+  options={[
+    { id: "A", text: "a system that involves machines only called feedback control" },
+    { id: "B", text: "driving a car can be considered manual control" },
+    { id: "C", text: "automatically controlled systems exist in nature" },
+    { id: "D", text: "all of the above" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="反馈控制由输出反馈信息定义，不是由是否包含机器来定义；驾驶汽车可视为人工控制，自然界也存在自动调节系统。"
+  links={[{ href: "../part.1/lec2.md#控制系统简介", label: "反馈控制" }]}
+/>
+
+<QuizCard
+  number="L2.Q3"
+  prompt="Select the correct statement."
+  answer="C"
+  options={[
+    { id: "A", text: "control systems can't compensate disturbances" },
+    { id: "B", text: "control systems can only be useful in remote operation" },
+    { id: "C", text: "closed-loop systems are less sensitive to noise" },
+    { id: "D", text: "all of the above" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="闭环系统通过反馈改善性能，通常能降低对扰动和参数变化的敏感性。"
+  links={[{ href: "../part.1/lec2.md#控制系统简介", label: "闭环系统" }]}
+/>
+
+<QuizCard
+  number="L2.Q4"
+  prompt="Select the wrong statement related to design of a feedback control system."
+  answer="E"
+  options={[
+    { id: "A", text: "if testing shows that requirements have not been met, the system must be redesigned and retested" },
+    { id: "B", text: "as a part of the design, description of the physical system transforms into a schematic diagram" },
+    { id: "C", text: "subsystem models are interconnected to form block diagrams of larger systems" },
+    { id: "D", text: "all of the above" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="A-C 都属于反馈控制系统设计流程：建模、连接子系统、测试，不满足要求则重新设计。"
+  links={[{ href: "../part.1/lec2.md#设计流程", label: "设计流程" }]}
+/>
+
+<QuizCard
+  number="L2.Q5"
+  prompt="Select the correct statement."
+  answer="E"
+  options={[
+    { id: "A", text: "Block diagrams cannot be used for open loop control system design" },
+    { id: "B", text: "flow of signals can be clearly seen in a block diagram" },
+    { id: "C", text: "block diagram algebra can be used to reduce block diagrams" },
+    { id: "D", text: "1 and 3" },
+    { id: "E", text: "2 and 3" },
+  ]}
+  answerNote="方框图可以清楚表示信号流，也可以用方框图代数进行化简；开环系统同样可以画方框图。"
+  links={[{ href: "../part.1/lec2.md#框图-block-diagram", label: "框图" }]}
+/>
+
+## Lecture 3
+
+<QuizCard
+  number="L3.Q1"
+  prompt="Select the correct statement related to block diagram reduction."
+  answer="E"
+  options={[
+    { id: "A", text: "check for the blocks connected in series and simplify" },
+    { id: "B", text: "check for the blocks connected in parallel and simplify" },
+    { id: "C", text: "transfer function present in the single block is the transfer function of the overall block diagram" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="方框图化简会依次处理串联、并联和反馈结构，直到得到一个等效方框；该方框就是整体传递函数。"
+  links={[{ href: "../part.1/lec3.md#使用方框图简化规则", label: "方框图简化" }]}
+/>
+
+<QuizCard
+  number="L3.Q2"
+  prompt="The overall transfer function from block diagram reduction for cascaded blocks is"
+  answer="B"
+  options={[
+    { id: "A", text: "sum of subsystem transfer functions" },
+    { id: "B", text: "product of subsystem transfer functions" },
+    { id: "C", text: "difference of subsystem transfer functions" },
+    { id: "D", text: "1 and 3" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="串联方框的等效传递函数相乘，即 <code>G_1(s)G_2(s)</code>。"
+  links={[{ href: "../part.1/lec2.md#级联两个信号", label: "级联方框" }]}
+/>
+
+<QuizCard
+  number="L3.Q3"
+  prompt="The overall transfer function of two blocks in parallel are"
+  answer="A"
+  options={[
+    { id: "A", text: "sum of subsystem transfer functions" },
+    { id: "B", text: "product of subsystem transfer functions" },
+    { id: "C", text: "division of subsystem transfer functions" },
+    { id: "D", text: "2 and 3" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="并联路径在同一信号流方向上相加，因此等效传递函数为各支路传递函数之和。"
+  links={[{ href: "../part.1/lec2.md#求和两个信号", label: "并联/求和" }]}
+/>
+
+<QuizCard
+  number="L3.Q4"
+  prompt="If the response to simultaneous control inputs and disturbances is required, they cannot be evaluated."
+  answer="B"
+  answerLabel="False"
+  options={[
+    { id: "A", text: "True" },
+    { id: "B", text: "False" },
+  ]}
+  answerNote="可以使用叠加原理：分别求参考输入响应和扰动响应，再相加得到总响应。"
+  links={[{ href: "../part.1/lec3.md#叠加原理", label: "叠加原理" }]}
+/>
+
+<QuizCard
+  number="L3.Q5"
+  prompt="A disturbance to a plant is incorporated by splitting the overall transfer function of the plant and amplifier."
+  answer="A"
+  answerLabel="True"
+  options={[
+    { id: "A", text: "True" },
+    { id: "B", text: "False" },
+  ]}
+  answerNote="为了把扰动插入被控对象输入端，需要把放大器和 plant 拆成不同方框。"
+  links={[{ href: "../part.1/lec3.md#叠加原理", label: "扰动输入" }]}
+/>
+
+## Lecture 4
+
+<QuizCard
+  number="L4.Q1"
+  prompt="The output of the feedback control system must be a function of"
+  answer="D"
+  options={[
+    { id: "A", text: "reference input only" },
+    { id: "B", text: "reference output only" },
+    { id: "C", text: "output and feedback signal" },
+    { id: "D", text: "input and feedback signal" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="反馈系统的输出同时受参考输入通道和反馈信号影响。"
+  links={[{ href: "../part.1/lec4.md#传递函数性质", label: "反馈系统传递函数" }]}
+/>
+
+<QuizCard
+  number="L4.Q2"
+  prompt="Select the correct statement."
+  answer="D"
+  options={[
+    { id: "A", text: "characteristic equation simplifies the evaluation of a system’s response" },
+    { id: "B", text: "characteristic equation are fundamental to the analysis and design of control systems" },
+    { id: "C", text: "characteristic equation can be obtained using zeros of the system" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="特征方程来自传递函数分母，决定极点位置；不是由零点得到。"
+  links={[{ href: "../part.1/lec4.md#传递函数性质", label: "特征方程" }]}
+/>
+
+<QuizCard
+  number="L4.Q3"
+  prompt="Select the correct statement, if a factor of the denominator can be cancelled by the same factor in the numerator."
+  answer="C"
+  review={true}
+  options={[
+    { id: "A", text: "system should have equal number of poles and zeros" },
+    { id: "B", text: "all of the roots of the characteristic equation should be same as the zeros" },
+    { id: "C", text: "the root of this factor no longer causes the transfer function to become zero" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "2 and 3" },
+  ]}
+  answerNote="这里考的是 pole-zero cancellation。严格来说，被抵消的分母因子不再造成传递函数奇异/极点；原选项中的 zero 表述可能不够严谨。"
+  links={[{ href: "../part.1/lec4.md#传递函数性质", label: "极点与零点" }]}
+/>
+
+<QuizCard
+  number="L4.Q4"
+  prompt="Select the correct statement."
+  answer="D"
+  options={[
+    { id: "A", text: "system is stable if its transient response decays" },
+    { id: "B", text: "system is stable, if all the zeros are in the right hand s-plane" },
+    { id: "C", text: "when system marginally stable, at least one pole is on the imaginary axis" },
+    { id: "D", text: "1 and 3" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="稳定性由极点决定：左半平面极点产生衰减响应；虚轴极点对应临界稳定。"
+  links={[{ href: "../part.1/lec4.md#系统稳定性", label: "系统稳定性" }]}
+/>
+
+<QuizCard
+  number="L4.Q5"
+  prompt="If the response is a decaying sinusoid"
+  answer="C"
+  options={[
+    { id: "A", text: "all the poles are on the left hand s-plane" },
+    { id: "B", text: "both poles and zeros are on the left hand s-plane" },
+    { id: "C", text: "complex conjugate pole pair on the left hand s-plane" },
+    { id: "D", text: "complex conjugate pole pair on the right hand s-plane" },
+    { id: "E", text: "imaginary pole pair on the imaginary axis" },
+  ]}
+  answerNote="衰减正弦来自实部为负的复共轭极点。右半平面会发散，纯虚轴不会衰减。"
+  links={[{ href: "../part.1/lec4.md#所谓-稳定", label: "极点位置与响应" }]}
+/>
+
+## Lecture 5
+
+<QuizCard
+  number="L5.Q1"
+  prompt="Select the correct statement/s."
+  answer="E"
+  options={[
+    { id: "A", text: "proportional controller is an amplifier with adjustable gain" },
+    { id: "B", text: "derivative controller is as an amplifier with a \"knob\" that can be adjusted up or down." },
+    { id: "C", text: "goal of derivative feedback is to improve closed-loop system stability" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "1 and 3" },
+  ]}
+  answerNote="比例控制相当于可调增益；微分反馈主要用于改善瞬态和稳定性，不是单纯的放大器。"
+  links={[{ href: "../part.1/lec5.md#基本控制作用", label: "基本控制作用" }]}
+/>
+
+<QuizCard
+  number="L5.Q2"
+  prompt="Derivative control is almost never used by itself, because"
+  answer="B"
+  options={[
+    { id: "A", text: "it reduces the transient response" },
+    { id: "B", text: "it does not supply information on the desired end state" },
+    { id: "C", text: "it tends to provide no response to noise" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "2 and 3" },
+  ]}
+  answerNote="微分只看变化率，不提供目标终值信息；实际中还容易放大噪声，所以通常与 P 或 PI 配合。"
+  links={[{ href: "../part.1/lec5.md#导数控制-d-derivative", label: "导数控制" }]}
+/>
+
+<QuizCard
+  number="L5.Q3"
+  prompt="Goal of integral control is to"
+  answer="E"
+  options={[
+    { id: "A", text: "minimize the steady-state tracking error" },
+    { id: "B", text: "minimize steady-state output response to disturbances" },
+    { id: "C", text: "use as a reset control" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="积分控制的核心目标是消除/减小稳态误差，也用于扰动稳态抑制；它也叫 reset control。"
+  links={[{ href: "../part.1/lec5.md#积分控制-i-integral", label: "积分控制" }]}
+/>
+
+<QuizCard
+  number="L5.Q4"
+  prompt="Select correct statement/s."
+  answer="A"
+  options={[
+    { id: "A", text: "Derivative action is used to speed the effect of the proportional action" },
+    { id: "B", text: "proportional action doesn't add a steady state error" },
+    { id: "C", text: "response of a second-order system to a unit step input isn't dependent on the damping" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="微分作用可以提前响应误差变化，增强比例作用的瞬态效果；比例控制可能留下稳态误差，二阶响应强烈依赖阻尼比。"
+  links={[{ href: "../part.1/lec5.md#比例微分控制-pd", label: "PD 控制" }]}
+/>
+
+<QuizCard
+  number="L5.Q5"
+  prompt="Select correct statement/s."
+  answer="A"
+  options={[
+    { id: "A", text: "Proportional control of a first-order system gives a large error for low gain" },
+    { id: "B", text: "infinite proportional gain causes system to respond as a unity feedback" },
+    { id: "C", text: "high proportional gain increase the time constant" },
+    { id: "D", text: "all of the above" },
+    { id: "E", text: "none of the above" },
+  ]}
+  answerNote="一阶系统 P 控制的终值为 <code>K_p/(K_p+1)</code>，低增益会带来较大稳态误差；增大 <code>K_p</code> 通常会减小等效时间常数。"
+  links={[{ href: "../part.1/lec5.md#p", label: "一阶系统 P 控制" }]}
+/>
+
+## Lecture 6
+
+<QuizCard
+  number="L6.Q1"
+  prompt="Select the correct statement/s related to PD control."
+  answer="E"
+  options={[
+    { id: "A", text: "steady state error of a second-order system with proportional plus derivative feedback control is identical to first order system with proportional plus derivative control" },
+    { id: "B", text: "proportional control increase the frequency of the response" },
+    { id: "C", text: "by tuning it is possible to eliminate oscillations from the response" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="二阶 PD 控制中，<code>K_p</code> 影响闭环自然频率，<code>K_d</code> 影响阻尼；调参可以压低振荡，而稳态增益仍由比例项决定。"
+  links={[{ href: "../part.1/lec6.md#pd", label: "PD 控制" }]}
+/>
+
+<QuizCard
+  number="L6.Q2"
+  prompt="Select correct statement/s related to integral control."
+  answer="A"
+  options={[
+    { id: "A", text: "first order system with integral control action eliminates the steady state error" },
+    { id: "B", text: "higher <code>K_i</code> (say 20) gives a highly damped oscillation for first order systems" },
+    { id: "C", text: "lower <code>K_i</code> (say 0.2) gives fast exponential response for first order systems" },
+    { id: "D", text: "none of the above" },
+    { id: "E", text: "1 and 3" },
+  ]}
+  answerNote="积分控制可消除稳态误差；但 <code>K_i</code> 太大通常降低阻尼、加重振荡，<code>K_i</code> 太小则响应变慢。"
+  links={[{ href: "../part.1/lec6.md#i", label: "积分控制" }]}
+/>
+
+<QuizCard
+  number="L6.Q3"
+  prompt="Select the correct statement/s related to PI control (first-order)."
+  answer="E"
+  options={[
+    { id: "A", text: "integral gain influence the frequency of the response" },
+    { id: "B", text: "proportional gain used to achieve the required damping" },
+    { id: "C", text: "addition of proportional control to integral control action has no effect on the steady state error" },
+    { id: "D", text: "1 and 3" },
+    { id: "E", text: "all of the above" },
+  ]}
+  answerNote="一阶 PI 控制中，<code>K_i</code> 影响闭环自然频率，<code>K_p</code> 主要调阻尼；积分项仍保证零稳态误差。"
+  links={[{ href: "../part.1/lec6.md#pi", label: "PI 控制" }]}
+/>
+
+<QuizCard
+  number="L6.Q4"
+  prompt="Select the correct statement/s related to PID control (first order)."
+  answer="D"
+  options={[
+    { id: "A", text: "addition of derivative control to proportional and integral control action has no effect on the steady state error" },
+    { id: "B", text: "controller may be tuned" },
+    { id: "C", text: "actual response of the system doesn't dependent on damping ratio" },
+    { id: "D", text: "1 and 2" },
+    { id: "E", text: "2 and 3" },
+  ]}
+  answerNote="PID 可通过 <code>K_p</code>、<code>K_i</code>、<code>K_d</code> 调参；加入 D 不改变积分项消除稳态误差的性质，而实际响应依赖阻尼比。"
+  links={[{ href: "../part.1/lec6.md#pid", label: "PID 控制" }]}
 />
