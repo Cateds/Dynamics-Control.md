@@ -189,6 +189,25 @@ async function main() {
               d.setAttribute("open", "");
             });
 
+            clone.querySelectorAll<HTMLElement>(".quiz-card").forEach((card) => {
+              const answer = card.dataset.answer?.trim().toUpperCase();
+              const correctOptions = new Set(answer?.match(/[A-Z]/g) ?? []);
+              card.classList.add("answered");
+
+              card.querySelectorAll<HTMLButtonElement>(".quiz-option").forEach((option) => {
+                const optionId = option.dataset.option?.trim().toUpperCase();
+                const isCorrect = !!optionId && correctOptions.has(optionId);
+
+                option.disabled = true;
+                option.classList.toggle("correct", isCorrect);
+                option.classList.toggle("muted", !isCorrect);
+              });
+            });
+
+            clone.querySelectorAll("table").forEach((table) => {
+              table.closest("details")?.classList.add("pdf-wide-block");
+            });
+
             const title =
               document
                 .querySelector("h1#_top")
