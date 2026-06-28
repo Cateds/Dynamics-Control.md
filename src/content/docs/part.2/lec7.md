@@ -62,6 +62,8 @@ $$
 \alpha>1
 $$
 
+PPT 中常见的取值直觉是 $\alpha$ 明显大于 $1$，例如大于 $10$ 的量级，用来强调零点和极点之间的分离。
+
 零点和极点分别为
 
 $$
@@ -71,8 +73,6 @@ $$
 所以极点比零点更靠左。
 
 低频增益为 $K$，高频增益为 $\alpha K$。
-
-![lead-compensator](./lec7.assets/image-2.png)
 
 ### 相位性质
 
@@ -148,6 +148,8 @@ $$
 \alpha>1
 $$
 
+PPT 中给的经验口径是 $\alpha$ 大于 $1$，但通常不要取得太夸张，例如小于 $10$ 的量级。
+
 零点和极点分别为
 
 $$
@@ -155,8 +157,6 @@ s=-\alpha\omega_c, \quad s=-\omega_c
 $$
 
 低频增益为 $\alpha K$，高频增益为 $K$。
-
-![lag-compensator](./lec7.assets/image-6.png)
 
 ### 相位性质
 
@@ -234,8 +234,6 @@ Lead 和 Lag 的对比如下：
 | 提高交越频率     | 降低交越频率    |
 | 增大带宽         | 减小带宽        |
 
-![lead-lag-comparison](./lec7.assets/image-11.png)
-
 ## 频域中的超前补偿器设计
 
 <details>
@@ -254,7 +252,18 @@ Lead 和 Lag 的对比如下：
    其中 $\phi_s$ 是目标相位裕度，$\phi_u$ 是未补偿系统相位裕度，$\epsilon$ 是安全裕度
 
 4. 令 $\phi_m=\phi_l$，确定补偿器参数
-5. 找新的交越频率 $\omega_m$
+5. 计算补偿网络在 $\omega_m$ 处提供的幅值：
+
+   $$
+   10\log_{10}\frac{1}{\alpha}
+   $$
+
+   然后在未补偿系统 Bode 图上找幅值为 $-10\log_{10}(1/\alpha)$ 的频率，这个频率就是补偿后的新交越频率：
+
+   $$
+   \omega_{c2}=\omega_m
+   $$
+
 6. 计算上下 corner frequency
 7. 画补偿后 Bode 图，检查是否满足要求
 
@@ -337,10 +346,6 @@ $$
 
 如果直接使用上面这种时间常数归一化形式，低频增益已经是 $1$，就不要再把这个 $A$ 乘第二遍。这里最容易因为符号约定切换把自己绕进去。
 
-![lead-design](./lec7.assets/image-12.png)
-
-![lead-design-result](./lec7.assets/image-13.png)
-
 </details>
 
 ## 频域中的滞后补偿器设计
@@ -351,17 +356,30 @@ $$
 滞后补偿器的频域设计大致是：
 
 1. 根据稳态误差要求确定 loop gain $K$
-2. 找到未补偿系统在目标相位裕度附近的频率 $\omega_{gc}$
-3. 测量该频率处的未补偿幅值，并把它等同于 lag 网络的高频衰减
-4. 选择 lag 网络的 corner frequency，通常放在 $\omega_{gc}$ 低一个 octave 到一个 decade 的地方
-5. 画补偿后频率响应，检查相位裕度
-6. 如果不满足规格，调整安全裕度并重复
+2. 找到未补偿系统在目标相位裕度附近的频率 $\omega_{c2}$。这个频率处的相位裕度贡献记作
+
+   $$
+   \phi_2=\phi_s+\epsilon
+   $$
+
+   其中 $\phi_2$ 是相对于 $-180^\circ$ 线向上量出来的相位，$\phi_s$ 是目标相位裕度，$\epsilon$ 是安全裕度，PPT 给的经验范围是 $5^\circ<\epsilon<15^\circ$。
+3. 测量未补偿系统在 $\omega_{c2}$ 处的幅值，并把它等同于 lag 网络的高频衰减：
+
+   $$
+   20\log_{10}\beta
+   $$
+
+   由此求出 $\beta$。
+4. 选择 lag 网络的 corner frequency $\omega_2$，通常放在 $\omega_{c2}$ 低一个 octave 到一个 decade 的地方：
+
+   $$
+   \omega_2=\frac{\omega_{c2}}{2}\text{ 到 }\frac{\omega_{c2}}{10}=\frac{1}{\tau}
+   $$
+
+5. 用 $\beta$ 和 $\tau$ 画补偿后频率响应，检查相位裕度
+6. 如果不满足规格，调整安全裕度 $\epsilon$ 并重复
 
 Lag 补偿器通常会降低带宽，但改善稳态误差和信噪比。
-
-![lag-design](./lec7.assets/image-17.png)
-
-![lag-design-2](./lec7.assets/image-18.png)
 
 </details>
 
