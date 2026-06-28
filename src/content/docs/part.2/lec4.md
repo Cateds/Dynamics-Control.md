@@ -134,16 +134,22 @@ $$
 
 如果只讨论该二阶项相对于低频的形状，通常看括号里的归一化部分。
 
-它的 corner frequency 为 $\omega_n$。
+把低频常数项归一化为 $1$ 后，二阶复共轭项 (complex conjugate component) 的时间常数形式可以写成：
 
-![second-order-component](./lec4.assets/image-7.png)
+$$
+G(j\omega)=1+j\frac{2\zeta\omega}{\omega_n}-\left(\frac{\omega}{\omega_n}\right)^2
+$$
+
+它的 corner frequency 为 $\omega_n$。
 
 二阶项大概是这么个规律：
 
 - 当 $\omega \ll \omega_n$ 时，幅值约为 $0\text{ dB}$
-- 当 $\omega \gg \omega_n$ 时，幅值以 $\pm40\text{ dB/dec}$ 的斜率变化，符号取决于它在分子还是分母
+- 当 $\omega \gg \omega_n$ 时，高频项 $\omega^2$ 主导；作为完整二阶项，幅值以 $\pm40\text{ dB/dec}$ 的斜率变化，符号取决于它在分子还是分母
+- 如果把它理解成两个一阶因子的贡献，每个因子对应 $20\text{ dB/dec}$
 - 相位变化总量为 $\pm180^\circ$
-- 在 $\omega=\omega_n$ 附近，相位约变化到一半
+- 若二阶项在分子，相位从 $0^\circ$ 变到 $180^\circ$，并且在 $\omega=\omega_n$ 处为 $90^\circ$
+- 若二阶项在分母，幅值斜率和相位变化方向相反
 
 <details>
 <summary>例题 3</summary>

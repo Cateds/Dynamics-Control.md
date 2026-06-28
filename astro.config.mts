@@ -82,8 +82,7 @@ export default defineConfig({
         theme: "base",
         themeVariables: {
           background: "transparent",
-          fontFamily:
-            "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif",
+          fontFamily: "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif",
           primaryColor: "#f8f1ec",
           primaryTextColor: "#2f2a24",
           primaryBorderColor: "#d49a7e",

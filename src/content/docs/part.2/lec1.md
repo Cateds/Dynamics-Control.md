@@ -164,7 +164,7 @@ $$
 
 满足这个方程的候选点再代回根轨迹规则检查。
 
-![breakaway](./lec1.assets/image-7.png)
+![alt text](lec1.assets/image-7.png)
 
 ## MATLAB 绘制
 

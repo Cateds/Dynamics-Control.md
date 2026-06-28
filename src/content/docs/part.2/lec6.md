@@ -46,9 +46,28 @@ $$
 D(s)=1+G(s)H(s)
 $$
 
-如果画 $D(s)$ 的 Nyquist 图，就需要看它对原点的环绕情况。等价地，如果画 $G(s)H(s)$ 的 Nyquist 图，就看它对 $(-1,j0)$ 的环绕情况。
+如果画 $D(s)$ 的 Nyquist 图，就需要看它对原点的环绕情况。Nyquist 稳定判据说的是：闭环不稳定极点数量，等于开环不稳定极点数量，加上 $D(s)$ 的 Nyquist 图对原点的环绕次数。
 
-![nyquist-origin-minus-one](./lec6.assets/image.png)
+但实际画图时，通常不直接画
+
+$$
+D(s)=1+G(s)H(s)
+$$
+
+而是画开环频率响应
+
+$$
+D'(s)=G(s)H(s)
+$$
+
+然后数它对 $(-1,j0)$ 的环绕次数。原因是 $D(s)=1+G(s)H(s)$ 只是把 $G(s)H(s)$ 的轨迹整体向右平移 $1$，所以：
+
+- $1+G(j\omega)H(j\omega)$ 对原点的环绕
+- 等价于 $G(j\omega)H(j\omega)$ 对 $(-1,j0)$ 的环绕
+
+也就是说，Nyquist 判据把闭环系统的稳定性问题，转成了对开环频率响应轨迹的观察。
+
+![nyquist-path-concept](./lec6.assets/image-1.png)
 
 计数规则为
 
@@ -79,7 +98,7 @@ $$
 
 PPT 中给了两个直接通过 Nyquist 图判断稳定性的例子。
 
-![nyquist-example-1](./lec6.assets/image-1.png)
+![nyquist-example-1](./lec6.assets/image-3.png)
 
 第一个例子中，开环传递函数为
 
@@ -97,7 +116,13 @@ $$
 
 第二个例子：
 
-![nyquist-example-2](./lec6.assets/image-2.png)
+![nyquist-example-2](./lec6.assets/image-4.png)
+
+图中的开环传递函数为
+
+$$
+G(s)=\frac{500(s-2)}{(s+2)(s+8)(s+50)}
+$$
 
 根据 PPT 的图和结果，最终有
 
@@ -121,7 +146,7 @@ $$
 
 我们关心它和负实轴的交点，因为那里对应相位 $-180^\circ$。
 
-![nyquist-margin-setup](./lec6.assets/image-3.png)
+![nyquist-margin-setup](./lec6.assets/image-5.png)
 
 把 $G(j\omega)H(j\omega)$ 写成实部和虚部：
 
@@ -153,7 +178,7 @@ $$
 K<\frac{T_1+T_2}{T_1T_2}
 $$
 
-![nyquist-margin](./lec6.assets/image-4.png)
+![nyquist-margin](./lec6.assets/image-6.png)
 
 Nyquist 图中的相位裕度和增益裕度仍然可以写成：
 

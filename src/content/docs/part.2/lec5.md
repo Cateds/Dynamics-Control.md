@@ -62,8 +62,6 @@ $$
 
 对应的响应是 $e^t$，极点在右半平面，响应会发散，所以不稳定。
 
-![unstable-response](./lec5.assets/image-1.png)
-
 更一般地：
 
 - 极点在左半平面：稳定

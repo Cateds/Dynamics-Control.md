@@ -115,11 +115,80 @@ $$
 - 时间域关注单位阶跃响应、超调、调节时间、稳态误差
 - 频率域关注增益、相位、带宽、增益裕度和相位裕度
 
-![time-frequency](./lec2.assets/image-2.png)
+课堂图里接着用标准二阶系统说明频率响应。闭环传递函数写成：
+
+$$
+\frac{C(s)}{R(s)}=\frac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}
+$$
+
+其中 $\zeta$ 是阻尼比 (damping factor)，$\omega_n$ 是无阻尼自然频率 (undamped natural frequency)。图里还给了时间域和频域下的开环传递函数对应关系：
+
+$$
+G_t(s)=\frac{K_v}{s(\tau s+1)},\qquad
+G_f(s)=\frac{\omega_n^2}{s^2+2\zeta\omega_n s},\qquad
+G_t(s)\equiv G_f(s)
+$$
+
+令 $s=j\omega$，二阶系统的频率响应为：
+
+$$
+\frac{C(j\omega)}{R(j\omega)}=T(j\omega)
+=\frac{\omega_n^2}{(j\omega)^2+2\zeta\omega_n(j\omega)+\omega_n^2}
+=\frac{1}{1-u^2+j2\zeta u}
+$$
+
+这里
+
+$$
+u=\frac{\omega}{\omega_n}
+$$
+
+是归一化输入频率 (normalised driving signal frequency)。因此幅值和相位可以写成：
+
+$$
+|T(j\omega)|=M=\frac{1}{\sqrt{(1-u^2)^2+(2\zeta u)^2}}
+$$
+
+$$
+\angle T(j\omega)=\phi=-\tan^{-1}\left(\frac{2\zeta u}{1-u^2}\right)
+$$
+
+这里 $M$ 表示幅值 (magnitude)，$\phi$ 表示相位 (phase)。
 
 对于二阶系统，频域里还会出现 **共振峰** (Resonant Peak) 和 **共振频率** (Resonant Frequency)。当阻尼比较小时，系统会在某个频率附近把输入放大得更明显。
 
-![resonance](./lec2.assets/image-3.png)
+最大幅值就是共振峰，它出现在共振频率 $\omega=\omega_r$ 处，可以由幅值对 $u$ 求导得到：
+
+$$
+\left.\frac{dM}{du}\right|_{u=u_r}=0
+$$
+
+对应方程为：
+
+$$
+4u_r^3-4u_r+8\zeta^2u_r=0
+$$
+
+所以
+
+$$
+u_r=\sqrt{1-2\zeta^2},\qquad
+\omega_r=\omega_n\sqrt{1-2\zeta^2}
+$$
+
+共振峰为：
+
+$$
+M_r=\frac{1}{2\zeta\sqrt{1-\zeta^2}}
+$$
+
+共振频率处的相位为：
+
+$$
+\phi_r=-\tan^{-1}\left(\frac{\sqrt{1-2\zeta^2}}{\zeta}\right)
+$$
+
+注意这里的 $u_r$ 和 $\omega_r$ 要是实数，需要 $1-2\zeta^2>0$，也就是 $\zeta<1/\sqrt{2}$。阻尼越小，$M_r$ 越大，共振峰越明显。
 
 这也是为什么频域分析能看稳定性：如果某个频率附近系统增益很大、相位又接近危险区域，反馈一接上就可能开始发癫。
 
