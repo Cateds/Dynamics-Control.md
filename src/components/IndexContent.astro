@@ -3,6 +3,7 @@ import type { ImageMetadata } from "astro";
 
 interface Article {
   id: string;
+  body?: string;
   data: {
     title: string;
     description?: string;
@@ -106,9 +107,9 @@ function sourcePathFromArticle(section: Section, article: Article) {
 
 function toCard(section: Section, article: Article): CourseCard {
   const docKey = `../content/docs/${sourcePathFromArticle(section, article)}.md`;
-  const source = markdownFiles[docKey] ?? "";
-  const cardBg = article.data["card-bg"] ?? readFrontmatterValue(source, "card-bg");
-  const imagePath = cardBg ?? readFirstImage(source);
+  const rawSource = markdownFiles[docKey] ?? "";
+  const cardBg = article.data["card-bg"] ?? readFrontmatterValue(rawSource, "card-bg");
+  const imagePath = cardBg ?? readFirstImage(article.body ?? rawSource);
 
   return {
     href: `../${article.id}/`,
