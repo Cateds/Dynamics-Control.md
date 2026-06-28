@@ -234,6 +234,8 @@ Lead 和 Lag 的对比如下：
 | 提高交越频率     | 降低交越频率    |
 | 增大带宽         | 减小带宽        |
 
+![lead-lag-comparison](./lec7.assets/image-11.png)
+
 ## 频域中的超前补偿器设计
 
 <details>
